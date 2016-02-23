@@ -13,8 +13,11 @@ int main() {
 	 */
 
 	Tree bst(5);
-	cout << bst.start->data << endl;
+	cout << "Start " << bst.root->data << endl;
 	bst.insert(3);
 	bst.insert(8);
+
+	cout << "\nDFS Print\n";
+	bst.DFS();
 
 }

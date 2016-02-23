@@ -19,6 +19,8 @@ public:
 	void insert(int);
 	void deleteNode();
 
+	void DFS();
+
 	struct Node {
 		Node();
 		Node(int);
@@ -28,7 +30,7 @@ public:
 		Node* right;
 	};
 
-	Node* start;
+	Node* root;
 
 private:
 	/*
@@ -41,6 +43,8 @@ private:
 
 	void insert(Node*, int);
 	void deleteNode(Node*, int);
+
+	void DFS(Node*);
 
 };
 

@@ -14,11 +14,11 @@
 using namespace std;
 
 Tree::Tree() {
-	start = new Node();
+	root = new Node();
 }
 
 Tree::Tree(int n) {
-	start = new Node(n);
+	root = new Node(n);
 }
 
 Tree::~Tree() {
@@ -37,26 +37,53 @@ Tree::Node::Node(int n) {
 }
 
 void Tree::insert(int data) {
-	Node* itr = start;
-	insert(itr, data); //Calls function below for recursion
+	if (root == NULL) {
+		root = new Node(data);
+	} else {
+		Node* itr = root;
+		insert(itr, data); //Calls function below for recursion
+	}
 }
 
 void Tree::insert(Node* itr, int data) {
-	//Assuming no duplicates for now
-	if (itr == NULL) {
-		itr = new Node(data);
-		cout << "Inserting " << data << endl;
-	}
-	else if (data < itr->data) {
-		cout << "Left\n";
-		insert(itr->left, data);
+	//Assuming no duplicates possible
+	if (data < itr->data) {
+		if (itr->left == NULL){
+			cout << "Inserting " << data << endl;
+			itr->left = new Node(data);
+		} else {
+			cout << "Left\n";
+			insert(itr->left, data);
+		}
 	}
 	else if (data > itr->data) {
-		cout << "Right\n";
-		insert(itr->right, data);
+		if (itr->right == NULL){
+			cout << "Inserting " << data << endl;
+			itr->right = new Node(data);
+		} else {
+			cout << "Right\n";
+			insert(itr->right, data);
+		}
 	}
 }
 
 void Tree::deleteNode() {
 
+}
+
+void Tree::DFS() {
+	Node* itr = root;
+	DFS(itr);
+}
+
+void Tree::DFS(Node* itr) {
+
+	cout << itr->data << " ";
+
+	if (itr->left != NULL) {
+		DFS(itr->left);
+	}
+	if (itr->right != NULL) {
+		DFS(itr->right);
+	}
 }
