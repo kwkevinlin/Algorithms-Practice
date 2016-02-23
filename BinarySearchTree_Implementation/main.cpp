@@ -8,8 +8,11 @@ int main() {
 	/*
 	 * Binary Tree Implementation
 	 *
+	 *	In progress
+	 *
 	 */
 
-
+	Tree bst(5);
+	cout << bst.start->data;
 
 }
