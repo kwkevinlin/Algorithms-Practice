@@ -9,7 +9,7 @@ int solution(int X);
 int main() {
 
 	/*
-	 * HackerRank Interview Question, notable company (re-worded):
+	 *  Interview Question via HackerRank, notable company (re-worded):
 	 * 	Given an integer, you are allowed to duplicate one of its individual
 	 * 	number to its side. Find the largest variation of such. For example:
 	 *
