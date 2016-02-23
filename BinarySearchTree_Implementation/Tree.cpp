@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <queue>
 #include "Tree.h"
 
 using namespace std;
@@ -46,13 +47,12 @@ void Tree::insert(int data) {
 }
 
 void Tree::insert(Node* itr, int data) {
-	//Assuming no duplicates possible
+	//Assuming no duplicates allowed
 	if (data < itr->data) {
 		if (itr->left == NULL){
 			cout << "Inserting " << data << endl;
 			itr->left = new Node(data);
 		} else {
-			cout << "Left\n";
 			insert(itr->left, data);
 		}
 	}
@@ -61,9 +61,12 @@ void Tree::insert(Node* itr, int data) {
 			cout << "Inserting " << data << endl;
 			itr->right = new Node(data);
 		} else {
-			cout << "Right\n";
 			insert(itr->right, data);
 		}
+	}
+	else if (data == itr->data) {
+		cout << "Duplicate detected: " << data << "\n";
+		return;
 	}
 }
 
@@ -86,4 +89,28 @@ void Tree::DFS(Node* itr) {
 	if (itr->right != NULL) {
 		DFS(itr->right);
 	}
+}
+
+void Tree::BFS() {
+	Node* itr = root;
+	queue<Node*> bfsQueue;
+	bfsQueue.push(itr);
+
+	//While elements in queue
+	while (bfsQueue.size() > 0) {
+
+		itr = bfsQueue.front();
+
+		cout << itr->data << " ";
+
+		if (itr->left != NULL) {
+			bfsQueue.push(itr->left);
+		}
+		if (itr->right != NULL) {
+			bfsQueue.push(itr->right);
+		}
+
+		bfsQueue.pop();
+	}
+
 }

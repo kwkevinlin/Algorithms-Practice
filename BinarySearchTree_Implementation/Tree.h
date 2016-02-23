@@ -10,6 +10,8 @@
 #ifndef TREE_H_
 #define TREE_H_
 
+#include <queue>
+
 class Tree {
 public:
 	Tree();
@@ -20,6 +22,7 @@ public:
 	void deleteNode();
 
 	void DFS();
+	void BFS();
 
 	struct Node {
 		Node();
@@ -35,7 +38,7 @@ public:
 private:
 	/*
 	 * The following will be in private, but is currently in
-	 * public for testing
+	 * public for easier testing
 	 *
 	 * 		Node* start
 	 * 		struct Node {}
