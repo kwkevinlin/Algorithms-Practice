@@ -16,7 +16,7 @@ public:
 	Tree(int);
 	~Tree();
 
-	void insert();
+	void insert(int);
 	void deleteNode();
 
 	struct Node {
@@ -38,6 +38,9 @@ private:
 	 * 		Node* start
 	 * 		struct Node {}
 	 */
+
+	void insert(Node*, int);
+	void deleteNode(Node*, int);
 
 };
 
