@@ -10,8 +10,8 @@ int main() {
 	 *
 	 * Test Tree looks like:
 	 *
-	 * 		   _6_
-	 * 		 /     \
+	 *         _6_
+	 *       /     \
 	 * 	    2	    7
 	 * 	   / \       \
 	 * 	  1   4	      9
