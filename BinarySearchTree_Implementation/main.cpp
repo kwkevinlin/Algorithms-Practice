@@ -13,7 +13,7 @@ int main() {
 	 */
 
 	Tree bst(5);
-	cout << "Start " << bst.root->data << endl;
+	cout << "Root " << bst.root->data << endl;
 	bst.insert(3);
 	bst.insert(8);
 	bst.insert(1);
@@ -25,5 +25,7 @@ int main() {
 	bst.DFS();
 	cout << "\nBFS Print\n";
 	bst.BFS();
+	cout << "\nPreOrder Print\n";
+	bst.preOrder();
 
 }

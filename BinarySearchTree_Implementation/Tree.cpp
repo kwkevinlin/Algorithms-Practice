@@ -114,3 +114,20 @@ void Tree::BFS() {
 	}
 
 }
+
+void Tree::preOrder() {
+	Node* itr = root;
+	preOrder(itr);
+}
+
+void Tree::preOrder(Node* itr) {
+
+	cout << itr->data << " ";
+
+	if (itr->left != NULL) {
+		preOrder(itr->left);
+	}
+	if (itr->right != NULL) {
+		preOrder(itr->right);
+	}
+}

@@ -24,6 +24,10 @@ public:
 	void DFS();
 	void BFS();
 
+	void inOrder();
+	void preOrder();
+	void postOrder();
+
 	struct Node {
 		Node();
 		Node(int);
@@ -48,6 +52,10 @@ private:
 	void deleteNode(Node*, int);
 
 	void DFS(Node*);
+
+	void inOrder(Node*);
+	void preOrder(Node*);
+	void postOrder(Node*);
 
 };
 
