@@ -115,13 +115,31 @@ void Tree::BFS() {
 
 }
 
+void Tree::inOrder() {
+	Node* itr = root;
+	inOrder(itr);
+}
+
+void Tree::inOrder(Node* itr) {
+	//Left first, print mid, then right
+	if (itr->left != NULL) {
+		inOrder(itr->left);
+	}
+
+	cout << itr->data << " ";
+
+	if (itr->right != NULL) {
+		inOrder(itr->right);
+	}
+}
+
 void Tree::preOrder() {
 	Node* itr = root;
 	preOrder(itr);
 }
 
 void Tree::preOrder(Node* itr) {
-
+	//Print, then left, then right. Like DFS
 	cout << itr->data << " ";
 
 	if (itr->left != NULL) {
@@ -130,4 +148,21 @@ void Tree::preOrder(Node* itr) {
 	if (itr->right != NULL) {
 		preOrder(itr->right);
 	}
+}
+
+void Tree::postOrder() {
+	Node* itr = root;
+	postOrder(itr);
+}
+
+void Tree::postOrder(Node* itr) {
+	//Child first, then node
+	if (itr->left != NULL) {
+		postOrder(itr->left);
+	}
+	if (itr->right != NULL) {
+		postOrder(itr->right);
+	}
+
+	cout << itr->data << " ";
 }
