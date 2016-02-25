@@ -27,29 +27,36 @@ int main() {
 	 *
 	 */
 
-	int arr[] = {1, 0, 1, 1, 1, 0, 0, 1};
-	printNth(arr, 8);
+	int arr1[] = {1, 0, 1, 1, 1, 0, 0, 1};
+	int arr2[] = {1, 1, 1, 0, 3, 1, 2, 0, 1, 1};
+
+	printNth(arr1, 8);
+	cout << "\n";
+	printNth(arr2, 10);
 
 }
 
 void printNth(int arr[], int size) {
 
-	int count = 0;
+	int j, count = 0;
 	for (int i = 0; i < size; i++) {
 
-		for (int j = i; j < size ; j++) {
+		//Check for duplicate sequences
+		for (j = i; j < size ; j++) {
 			if (arr[j] == arr[i]) {
 				count++;
 			} else {
-				if (count > 0) {
-					cout << count << arr[i] << " ";
-					count = 0;
-					i = j - 1;
-				} else {
-					cout << "1" << arr[i];
-				}
 				break;
 			}
+		}
+
+		//Print-outs and modify i
+		if (count > 0) {
+			cout << count << arr[i];
+			count = 0;
+			i = j - 1;
+		} else {
+			cout << "1" << arr[i];
 		}
 	}
 }
