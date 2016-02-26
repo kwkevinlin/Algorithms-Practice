@@ -21,8 +21,9 @@ int main() {
 	int arr[] = {2, 36, 5, 21, 8, 13, 11, 20, 5, 4, 1};
 	int size = sizeof(arr)/sizeof(arr[0]);
 	int medianK = size / 2 - 1;
+	int test = 2;
 
-	selection(arr, medianK, size, 0, size - 1);
+	selection(arr, test, size, 0, size - 1);
 
 }
 
@@ -44,15 +45,24 @@ void selection(int arr[], int k, int size, int l, int r) {
 		}
 		//cout << "/twith " << arr[r];
 
-		int tmp = arr[l];
-		arr[l] = arr[r];
-		arr[r] = tmp;
+		//If duplicate, without this will infinite loop
+		if (arr[l] == arr[r]) {  //Bug, if 20 changed to 3, sequence will be "5 3 5"
+			l++;
+		}
+		else {
+			int tmp = arr[l];
+			arr[l] = arr[r];
+			arr[r] = tmp;
+		}
 
 	}
-
 
 	//Array check
 	for (int i = 0; i < size; i++)
 		cout << arr[i] << " ";
+
+	if (k < l) {
+		//recursion on #s < mid
+	}
 
 }
