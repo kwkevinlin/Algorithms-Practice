@@ -23,7 +23,8 @@ int main() {
 
 	 */
 
-	//Run using 3 clusters
+
+	//Running using 3 clusters right now
 
 	int K = 3, samples, dimensions;
 	float n;
@@ -33,6 +34,7 @@ int main() {
 
 	float data[samples][dimensions];
 
+	//Reading in coordinates to 2D array
 	for (int i = 0; i < samples; i++) {
 		for (int j = 0; j < dimensions; j++) {
 			infile >> n;
@@ -46,6 +48,7 @@ int main() {
 
 	float kMeans[K][dimensions];
 
+	//2. Make k guesses as to where those clusters could be. Your guesses will be wrong, but that doesn't matter.
 	for (int i = 0; i < K; i++) {
 		for (int j = 0; j < dimensions; j++) {
 			kMeans[i][j] = data[i][j]; //Populate initial cluster with first few samples (ie. cluster 1 = sample 1)
@@ -54,7 +57,7 @@ int main() {
 		cout << endl;
 	}
 
-	//For each element in your data, assign it to the cluster it's closest to.
+	//3. For each element in your data, assign it to the cluster it's closest to.
 	float dist, minDist = 100000;
 	int minCluster;
 	for (int i = 0; i < samples; i++) { //Per sample
@@ -79,10 +82,12 @@ int main() {
 			}
 			//}
 		}
-		cout << "Sample " << i << " closest cluster: " << minCluster << endl;
+		cout << "\nSample " << i << " closest cluster: " << minCluster << endl;
 		minDist = 100000;
 
 	}
+
+	//4. Move the center of each cluster to be in the middle of the elements that are assigned to that cluster.
 
 
 
