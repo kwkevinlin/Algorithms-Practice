@@ -121,6 +121,14 @@ int main() {
 		cout << endl;
 	}
 
+	//5. Repeat. So move samples to closest clusters
+	//Loop data[samples], compare to KMeans.
+	for (int z = 0; z < 100; z++) { //Repeat process for a max of 100 iterations
+
+
+
+	}
+
 
 
 
