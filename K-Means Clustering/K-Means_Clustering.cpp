@@ -47,10 +47,10 @@ int main() {
 	float clusters[K][samples][dimensions]; //K (3) clusters, with 12 slots each (max), and 2 coordinates per slot
 
 	float kMeans[K][dimensions]; //Contains information about clusters[K] above. Ie. Clusters[] doesn't contain
-								 //cluster coordinates
+	//cluster coordinates
 
-	float tmpClusters[K][samples][dimensions]; //For use when updating average mean for cluster
-	float tmpKMeans[K][dimensions];
+	float newClusters[K][samples][dimensions]; //For use when updating average mean for cluster
+	float newKMeans[K][dimensions];
 
 	//2. Make k guesses as to where those clusters could be. Your guesses will be wrong, but that doesn't matter.
 	for (int i = 0; i < K; i++) {
@@ -60,74 +60,85 @@ int main() {
 		}
 		cout << endl;
 	}
+	cout << endl;
 
-	//3. For each element in your data, assign it to the cluster it's closest to.
+	//For step 3 below, declaring them above here
 	float dist, minDist = 100000;
 	int minCluster;
 	int clusterIndex[K] = {0}; //Index to imitate stack in array
-	for (int i = 0; i < samples; i++) { //Per sample
-		for (int j = 0; j < K; j++) { // Per cluster
-			//for (int y = 0; y < dimensions; y++) { //Arbitrary dimensions
+	//For step 4
+	float storageDim[dimensions] = {0};
 
-			/* PRETEND ONLY 2 DIMENSIONS POSSIBLE */
+	/*==========================================================================
+		Major loop starts here
+	 */
+	for (int z = 0; z < 2; z++) { //Repeat process for a max of 100 iterations
 
-			/* Get distance to each cluster
+
+
+		//3. For each element in your data, assign it to the cluster it's closest to.
+		for (int i = 0; i < samples; i++) { //Per sample
+			for (int j = 0; j < K; j++) { // Per cluster
+				//for (int y = 0; y < dimensions; y++) { //Arbitrary dimensions
+
+				/* PRETEND ONLY 2 DIMENSIONS POSSIBLE */
+
+				/* Get distance to each cluster
 				dX1 = kMeans[j][0];
 				dX0 = data[i][0];
 				dY1 = kMeans[j][1];
 				dY0 = data[i][1];
-			 */
-			//cout << "\nSample " << i << "->Cluster " << j;
-			dist = sqrt(pow((kMeans[j][0] - data[i][0]), 2) + pow((kMeans[j][1] - data[i][1]), 2));
-			//cout << "= Dist: " << dist;
+				 */
+				//cout << "\nSample " << i << "->Cluster " << j;
+				dist = sqrt(pow((kMeans[j][0] - data[i][0]), 2) + pow((kMeans[j][1] - data[i][1]), 2));
+				//cout << "= Dist: " << dist;
 
-			if (dist < minDist) {
-				minDist = dist;
-				minCluster = j;
+				if (dist < minDist) {
+					minDist = dist;
+					minCluster = j;
+				}
+				//}
 			}
-			//}
-		}
-		cout << "Sample " << i << " closest cluster: " << minCluster << endl;
-		minDist = 100000;
-		//Add to closest cluster
-		clusters[minCluster][clusterIndex[minCluster]][0] = data[i][0];
-		clusters[minCluster][clusterIndex[minCluster]][1] = data[i][1];
-		clusterIndex[minCluster]++;
-	}
-
-	for (int i = 0; i < K; i++) {
-		cout << "Cluster " << i << " contains: " << clusterIndex[i] << " elements" << endl;
-	}
-	cout << endl;
-
-	//4. Move the center of each cluster to be in the middle of the elements that are assigned to that cluster.
-	//Get average of coordinates. x+x+x/n, y+y+y/n ? ###########################################################
-	float storageDim[dimensions] = {0};
-	for (int i = 0; i < K; i++) { //Per Cluster
-		cout << "Cluster " << i << " (avg): ";
-		for (int j = 0; j < clusterIndex[i]; j++) { //For each sample in each cluster
-			for (int y = 0; y < dimensions; y++) { //Per dimension
-
-				storageDim[y] = storageDim[y] + clusters[i][j][y]; //Get all of dim, ex: x+x+x
-			}
+			cout << "Sample " << i << " closest cluster: " << minCluster << endl;
+			minDist = 100000;
+			//Add to closest cluster
+			clusters[minCluster][clusterIndex[minCluster]][0] = data[i][0];
+			clusters[minCluster][clusterIndex[minCluster]][1] = data[i][1];
+			clusterIndex[minCluster]++;
 		}
 
-		//After getting sum, divide by number of samples in the cluster
-		for (int y = 0; y < dimensions; y++) { //Per dimension
-			tmpKMeans[i][y] = storageDim[y] / (float)clusterIndex[i]; //New average coordinates stored here
-			cout << tmpKMeans[i][y] << " ";
-			storageDim[y] = 0;
+		for (int i = 0; i < K; i++) {
+			cout << "Cluster " << i << " contains: " << clusterIndex[i] << " elements" << endl;
 		}
 		cout << endl;
-	}
 
-	//5. Repeat. So move samples to closest clusters
-	//Loop data[samples], compare to KMeans.
-	for (int z = 0; z < 100; z++) { //Repeat process for a max of 100 iterations
+		//4. Move the center of each cluster to be in the middle of the elements that are assigned to that cluster.
+		//Get average of coordinates. x+x+x/n, y+y+y/n ? ###########################################################
+		for (int i = 0; i < K; i++) { //Per Cluster
+			cout << "Cluster " << i << " (avg): ";
+			for (int j = 0; j < clusterIndex[i]; j++) { //For each sample in each cluster
+				for (int y = 0; y < dimensions; y++) { //Per dimension
+
+					storageDim[y] = storageDim[y] + clusters[i][j][y]; //Get all of dim, ex: x+x+x
+				}
+			}
+
+			//After getting sum, divide by number of samples in the cluster
+			for (int y = 0; y < dimensions; y++) { //Per dimension
+				kMeans[i][y] = storageDim[y] / (float)clusterIndex[i]; //New average coordinates stored here
+				cout << kMeans[i][y] << " ";
+				storageDim[y] = 0;
+			}
+			cout << endl;
+		}
+
+		//5. Repeat. So move samples to closest clusters
+		//Loop data[samples], compare to KMeans.
 
 
+		cout << "//=========== Loop " << z << " ===========//";
 
-	}
+	} //End 100 loop
 
 
 
