@@ -72,9 +72,13 @@ int main() {
 	/*==========================================================================
 		Major loop starts here
 	 */
-	for (int z = 0; z < 2; z++) { //Repeat process for a max of 100 iterations
+	for (int z = 0; z < 5; z++) { //Repeat process for a max of 100 iterations
 
-
+		//Quickly reset clusterIndex to overwrite data
+		for (int r = 0; r < K; r++) {
+			//memset(clusterIndex, 0, sizeof(clusterIndex));
+			clusterIndex[r] = 0;
+		}
 
 		//3. For each element in your data, assign it to the cluster it's closest to.
 		for (int i = 0; i < samples; i++) { //Per sample
@@ -136,7 +140,7 @@ int main() {
 		//Loop data[samples], compare to KMeans.
 
 
-		cout << "//=========== Loop " << z << " ===========//";
+		cout << "//=========== Loop " << z + 1 << " ===========//\n";
 
 	} //End 100 loop
 
