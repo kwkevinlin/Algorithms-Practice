@@ -23,6 +23,10 @@ int main() {
 	 *
 	 *  Note: Arrays and loops are way too nested
 	 *
+	 *  Test inputs:
+	 *  	K = 3, filename: kmeansSmall.txt
+	 *  	K = 2, filename: testInputs1.txt
+	 *
 	 */
 
 
@@ -74,7 +78,7 @@ int main() {
 	for (int z = 0; z < 5; z++) { //Repeat process for a max of 100 iterations
 
 		//Quickly reset clusterIndex to overwrite data
-		for (int r = 0; r < K; r++) {
+		for (int r = 0; r < K; r++) { //Per cluster
 			//memset(clusterIndex, 0, sizeof(clusterIndex));
 			clusterIndex[r] = 0;
 		}
@@ -82,25 +86,24 @@ int main() {
 		//3. For each element in your data, assign it to the cluster it's closest to.
 		for (int i = 0; i < samples; i++) { //Per sample
 			for (int j = 0; j < K; j++) { // Per cluster
-				//for (int y = 0; y < dimensions; y++) { //Arbitrary dimensions
+				float calcKMeansBuffer = 0;
+				for (int y = 0; y < dimensions; y++) { //Arbitrary dimensions
 
-				/* PRETEND ONLY 2 DIMENSIONS POSSIBLE */
+					/* Get distance to each cluster
+					dX1 = kMeans[j][0];
+					dX0 = data[i][0];
+					dY1 = kMeans[j][1];
+					dY0 = data[i][1];
+					 */
 
-				/* Get distance to each cluster
-				dX1 = kMeans[j][0];
-				dX0 = data[i][0];
-				dY1 = kMeans[j][1];
-				dY0 = data[i][1];
-				 */
-				//cout << "\nSample " << i << "->Cluster " << j;
-				dist = sqrt(pow((kMeans[j][0] - data[i][0]), 2) + pow((kMeans[j][1] - data[i][1]), 2));
-				//cout << "= Dist: " << dist;
+					calcKMeansBuffer = calcKMeansBuffer + pow((kMeans[j][y] - data[i][y]), 2);
+				}
+				dist = sqrt(calcKMeansBuffer);
 
 				if (dist < minDist) {
 					minDist = dist;
 					minCluster = j;
 				}
-				//}
 			}
 			cout << "Sample " << i << " closest cluster: " << minCluster << endl;
 			minDist = 100000;
