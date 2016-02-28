@@ -10,17 +10,19 @@ int main() {
 	 *	Must run for arbitrary dimensions
 	 *
 	 *
-	 *  kmeans K 			P 		  inputFile outputFile
-	 *  	   numClusters  Processors
+	 *  ./kmeans K 			  P 		  inputFile outputFile
+	 *  	     numClusters  Processors
 	 *
 	 *
 	 *  	   1. Choose a number, k, which is how many clusters you expect the data to have.
-			   2. Make k guesses as to where those clusters could be. Your guesses will be wrong, but that doesn't matter.
-			   3. For each element in your data, assign it to the cluster it's closest to.
-			   4. Move the center of each cluster to be in the middle of the elements that are assigned to that cluster.
-			   5. Repeat steps 3 and 4 until no more data moves from one cluster to another.
-
-
+	 *		   2. Make k guesses as to where those clusters could be. Your guesses will be wrong, but that doesn't matter.
+	 *		   3. For each element in your data, assign it to the cluster it's closest to.
+	 *		   4. Move the center of each cluster to be in the middle of the elements that are assigned to that cluster.
+	 *		   5. Repeat steps 3 and 4 until no more data moves from one cluster to another.
+	 *
+	 *
+	 *  Note: Arrays and loops are way too nested
+	 *
 	 */
 
 
@@ -47,10 +49,7 @@ int main() {
 	float clusters[K][samples][dimensions]; //K (3) clusters, with 12 slots each (max), and 2 coordinates per slot
 
 	float kMeans[K][dimensions]; //Contains information about clusters[K] above. Ie. Clusters[] doesn't contain
-	//cluster coordinates
-
-	float newClusters[K][samples][dimensions]; //For use when updating average mean for cluster
-	float newKMeans[K][dimensions];
+								 //cluster coordinates
 
 	//2. Make k guesses as to where those clusters could be. Your guesses will be wrong, but that doesn't matter.
 	for (int i = 0; i < K; i++) {
@@ -106,8 +105,10 @@ int main() {
 			cout << "Sample " << i << " closest cluster: " << minCluster << endl;
 			minDist = 100000;
 			//Add to closest cluster
-			clusters[minCluster][clusterIndex[minCluster]][0] = data[i][0];
-			clusters[minCluster][clusterIndex[minCluster]][1] = data[i][1];
+			for (int y = 0; y < dimensions; y++) {
+				clusters[minCluster][clusterIndex[minCluster]][y] = data[i][y];
+				clusters[minCluster][clusterIndex[minCluster]][y] = data[i][y];
+			}
 			clusterIndex[minCluster]++;
 		}
 
@@ -143,9 +144,6 @@ int main() {
 		cout << "//=========== Loop " << z + 1 << " ===========//\n";
 
 	} //End 100 loop
-
-
-
 
 
 }
