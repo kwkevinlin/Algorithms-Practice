@@ -1,19 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 using namespace std;
 
 int main() {
 
 	/*
-	 * Each file has the
-following format: On the top line is the number of samples S followed by the number of features per
-sample F. The rest of the file is S rows of F values, where each value is a real number between 0
-and 1, with each value in the file separated by a space. As an example, an input data file with 4
-samples of 2 features each would look like this:
-
-
-	 *
 	 *	Must run for arbitrary dimensions
 	 *
 	 *
@@ -60,6 +53,37 @@ samples of 2 features each would look like this:
 		}
 		cout << endl;
 	}
+
+	//For each element in your data, assign it to the cluster it's closest to.
+	float dist, minDist = 100000;
+	int minCluster;
+	for (int i = 0; i < samples; i++) { //Per sample
+		for (int j = 0; j < K; j++) { // Per cluster
+			//for (int y = 0; y < dimensions; y++) { //Arbitrary dimensions
+
+			/* PRETEND ONLY 2 DIMENSIONS POSSIBLE */
+
+			/* Get distance to each cluster
+				dX1 = kMeans[j][0];
+				dX0 = data[i][0];
+				dY1 = kMeans[j][1];
+				dY0 = data[i][1];
+			 */
+			//cout << "\nSample " << i << "->Cluster " << j;
+			dist = sqrt(pow((kMeans[j][0] - data[i][0]), 2) + pow((kMeans[j][1] - data[i][1]), 2));
+			//cout << "= Dist: " << dist;
+
+			if (dist < minDist) {
+				minDist = dist;
+				minCluster = j;
+			}
+			//}
+		}
+		cout << "Sample " << i << " closest cluster: " << minCluster << endl;
+		minDist = 100000;
+
+	}
+
 
 
 
