@@ -7,11 +7,12 @@ using namespace std;
 int main() {
 
 	/*
-	 *	Must run for arbitrary dimensions
+	 *	K-Means Clustering that runs for:
+	 *     Arbitrary number of dimensions
 	 *
-	 *
-	 *  ./kmeans K 			  P 		  inputFile outputFile
-	 *  	     numClusters  Processors
+	 *  For for the Parallel (pthreads) version of this code, please visit: https://github.com/kwkevinlin/CPU-Parallel-Computing/blob/master/(Lab%201)%20KMeans%20Clustering%20with%20Pthreads/serial-code-Optimized.c
+	 *  For the non-parallel, slightly optimized version of this code, please visit: https://github.com/kwkevinlin/CPU-Parallel-Computing/blob/master/(Lab%201)%20KMeans%20Clustering%20with%20Pthreads/main.c
+	 *  
 	 *
 	 *
 	 *  	   1. Choose a number, k, which is how many clusters you expect the data to have.
