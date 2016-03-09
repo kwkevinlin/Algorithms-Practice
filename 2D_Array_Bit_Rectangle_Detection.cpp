@@ -1,49 +1,72 @@
 #include <iostream>
+
 using namespace std;
 
+
 /*
+	Prompt:
+	Given a 2D array, identify the position and shape of the 0-bit rectangle.
 
-var image = [
-  [1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 0, 0, 0, 1],
-  [1, 1, 1, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1]
-];
+	var image = [
+	  [1, 1, 1, 1, 1, 1, 1],
+	  [1, 1, 1, 0, 0, 0, 1],
+	  [1, 1, 1, 0, 0, 0, 1],
+	  [1, 1, 1, 1, 1, 1, 1],
+	  [1, 1, 1, 1, 1, 1, 1]
+	];
 
-
-1 - white
-0 - black
-
+	Note: Only one such 0-bit rectangle exists in the image array.
 
  */
+
+int height = 5;
+const int width = 7;
+
+void detectRect(int[][width], int[]);
+
 int main() {
 
-	int start = -1;
-	int startRow;
-	int rows = 1;
-	int cont = 0;
+	//Populating sample array
+	int image[height][width] = {
+			{1, 1, 1, 1, 1, 1, 1}, //Row 0
+			{1, 1, 1, 0, 0, 0, 1}, //Row 1
+			{1, 1, 1, 0, 0, 0, 1}, //Row 2
+			{1, 1, 1, 1, 1, 1, 1}, //Row 3
+			{1, 1, 1, 1, 1, 1, 1}  //Row 4
+	};
 
 	int result[4];
+	detectRect(image, result);
+	cout << "Start Row: " << result[0] << endl <<
+			"Start Col: " << result[1] << endl <<
+			"For: " << result[2] << " Columns\n" <<
+			"And: " << result[3] << " Rows\n";
+}
+
+void detectRect(int arr[][width], int result[]) {
+	int startRow;		//Starting row
+	int startCol = -1; 	//Starting column
+	int cont = 0;		//Number of consecutive 0s
+	int rows = 1;		//Number of rows
+
 
 	for (int i = 0; i < height; i++) {
 
-		if (start != -1) {
-			if (arr[i][start] == 0) { //Potential for 0 rectangle
+		if (startCol != -1) {
+			if (arr[i][startCol] == 0) {
 				rows++;
 			}
 		}
 
 		for (int j = 0; j < width; j++) {
 
-			if (start == -1) {
+			//Only check if no previous 0s encountered
+			if (startCol == -1) {
 
-				//For each row, keep track of start/end of 0
-				if (arr[i][j] == 0) { //True for i = 2, j = 3
-					start = j;
+				//If found the start of the 0-bit rectangle
+				if (arr[i][j] == 0) {
+					startCol = j;
 					startRow = i;
-
-					//ex: start: i = 2, j = 3
 
 					//Check how long the contiguous 0 goes
 					for (int y = j; y < width; y++) {
@@ -55,19 +78,16 @@ int main() {
 						}
 					}
 				}
-
 			}
-
 		}
-
-
 	}
 
-	cout << "Starting Row: " << startRow << ", column: " << start << ", for " << cont << " values, for " << rows << " rows << endl;
-			result[0] = startRow; //y
-	
-	//Sample output:
-	//Starting Row: 4, element: 3, for 3 values, for 1 rows
+	//0-bit rectangle coordinate description
+	result[0] = startRow; 	//y
+	result[1] = startCol;   //x
+	result[2] = cont;     	//width
+	result[3] = rows;     	//height
+
 
 }
 
