@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unordered_set>
+#include <iterator>
 
 using namespace std;
 
@@ -41,9 +42,6 @@ int main() {
 void getUnion(int arr1[], int arr2[], int length) {
 
 	unordered_set<int> setUnion;
-
-	//Not sure yet the error of range insert
-	//setUnion.insert(arr1->begin(), arr1.end());
 
 	for (int i = 0; i < length; i++) {
 		setUnion.insert(arr1[i]);
