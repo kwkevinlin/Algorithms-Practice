@@ -1,5 +1,6 @@
 #include <iostream>
-#include <unordered_set>
+#include <set>
+#include <array>
 
 using namespace std;
 
@@ -35,10 +36,10 @@ int main() {
 
 
 	// Storing in unordered set to avoid dealing with duplicates
-	unordered_set<int> X1;
-	unordered_set<int> Y1;
-	unordered_set<int> X2;
-	unordered_set<int> Y2;
+	set<int> X1;
+	set<int> Y1;
+	set<int> X2;
+	set<int> Y2;
 	for (int i = 0; i < input.length(); i++) {
 		if (i == 1 || i == 7 || i == 13 || i == 19) {
 			X1.insert(input[i] - '0');
@@ -55,10 +56,31 @@ int main() {
 	}
 
 	// Input checking
-	//	for (auto kv : X1) {
-	//		cout << kv << " ";
-	//	}
+//		for (auto kv : X1) {
+//			cout << kv << " ";
+//		}
 
+	/* Range intercept will be:
+	 *
+	 * For X1: X1[0] <--> X1[1]
+	 * 		 :  1   <----> 4
+	 */
 
+	/*
+	 * Rethink this. Currently converting set to array to use [] operator
+	 */
+	array<int, 2> rangeX1, rangeX2, rangeY1, rangeY2;
+	copy(X1.begin(), X1.end(), rangeX1.begin());
+	copy(Y1.begin(), Y1.end(), rangeY1.begin());
+	copy(X2.begin(), X2.end(), rangeX2.begin());
+	copy(Y2.begin(), Y2.end(), rangeY2.begin());
+
+	//Check if overlap
+//	if (X2[0] >= X1[0] && X2[1] <= X1[1]) {
+//		cout << "X overlap\n";
+//		if (Y2[0] >= Y1[0] && Y2[1] <= Y1[1]) {
+//			cout << "Y overlap\n";
+//		}
+//	}
 
 }
