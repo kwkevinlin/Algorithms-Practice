@@ -31,9 +31,15 @@ int main() {
 	 *
 	 */
 	//				 x y   x y   x y   x y   x y   x y   x y   x y
-	string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)";
+	//string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)";
 	//				012345678910         21  25
+	string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)";
 
+
+	/*
+	 * Issue:
+	 *     Negative numbers mess up inputs because of position
+	 */
 
 	// Storing in unordered set to avoid dealing with duplicates
 	set<int> X1;
@@ -55,11 +61,6 @@ int main() {
 		}
 	}
 
-	// Input checking
-//		for (auto kv : X1) {
-//			cout << kv << " ";
-//		}
-
 	/* Range intercept will be:
 	 *
 	 * For X1: X1[0] <--> X1[1]
@@ -74,13 +75,19 @@ int main() {
 	copy(Y1.begin(), Y1.end(), rangeY1.begin());
 	copy(X2.begin(), X2.end(), rangeX2.begin());
 	copy(Y2.begin(), Y2.end(), rangeY2.begin());
+	for (auto kv : Y2)
+		cout << kv << endl;
 
+	int overlap = 0;
 	//Check if overlap
-//	if (X2[0] >= X1[0] && X2[1] <= X1[1]) {
-//		cout << "X overlap\n";
-//		if (Y2[0] >= Y1[0] && Y2[1] <= Y1[1]) {
-//			cout << "Y overlap\n";
-//		}
-//	}
+	if (rangeX2[0] >= rangeX1[0] && rangeX2[1] <= rangeX1[1]) {
+		cout << "X overlap\n";
+		cout << rangeY2[0] << ">=" << rangeY1[0] <<  "&&" << rangeY2[1] << "<=" << rangeY1[1] << endl;
+		if (rangeY2[0] >= rangeY1[0] && rangeY2[1] <= rangeY1[1]) {
+			cout << "Y overlap\n";
+			overlap = 1;
+		}
+	}
+
 
 }
