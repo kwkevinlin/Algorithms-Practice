@@ -32,10 +32,10 @@ int main() {
 	 *
 	 */
 	//				 x y   x y   x y   x y   x y   x y   x y   x y
-	//string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)";
+	string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)";
 	//				012345678910         21  25
 	//string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)";
-	string input = "(1,1),(1,4),(4,4),(4,1),(3,2),(5,2),(3,0),(5,0)";
+	//string input = "(1,1),(1,4),(4,4),(4,1),(3,2),(5,2),(3,0),(5,0)";
 
 	// Storing in unordered set to avoid dealing with duplicates
 	set<int> X1;
@@ -84,20 +84,21 @@ int main() {
 	int overlap = 0;
 
 	/*
-	 * Bug in overlap detection for 3rd input case
-	 *    Partial overlap
+	 * Changed && to || in overlap detection
+	 *    Check to make sure its logical
 	 */
 
 	//Check if overlap
-	cout << rangeX2[0] << " >= " << rangeX1[0] <<  " && " << rangeX2[1] << " <= " << rangeX1[1] << endl;
-	if (rangeX2[0] >= rangeX1[0] && rangeX2[1] <= rangeX1[1]) {
+	cout << rangeX2[0] << " >= " << rangeX1[0] <<  " || " << rangeX2[1] << " <= " << rangeX1[1] << endl;
+	if (rangeX2[0] >= rangeX1[0] || rangeX2[1] <= rangeX1[1]) {
 		cout << "X overlap\n";
-		cout << rangeY2[0] << " >= " << rangeY1[0] <<  " && " << rangeY2[1] << " <= " << rangeY1[1] << endl;
-		if (rangeY2[0] >= rangeY1[0] && rangeY2[1] <= rangeY1[1]) {
+		cout << rangeY2[0] << " >= " << rangeY1[0] <<  " || " << rangeY2[1] << " <= " << rangeY1[1] << endl;
+		if (rangeY2[0] >= rangeY1[0] | rangeY2[1] <= rangeY1[1]) {
 			cout << "Y overlap\n";
 			overlap = 1;
 		}
 	}
+	cout << endl;
 
 	//Check area of overlap
 	if (overlap == 1) {
@@ -109,8 +110,37 @@ int main() {
 
 		// A. Get area of Rect1
 		int areaRect1 = ( rangeX1[1] - rangeX1[0] ) * ( rangeY1[1] - rangeY1[0] );
+		cout << "Rect1 Area: " << areaRect1 << endl;
 
 		// B. Determine area of overlap
+
+		/* Check which: [0] or [1] (or both) is inside big rectangle
+		 * This can be combined to "Check if overlap" later	*/
+		int XSmall = 0, XBig = 0;
+		if (rangeX2[0] >= rangeX1[0]) {
+			XSmall = 1;
+			cout << "SmallX in\n";
+		}
+		if (rangeX2[1] <= rangeX1[1]) {
+			XBig = 1;
+			cout << "BigX in\n";
+		}
+
+		/*
+		 * BUG LOOK HERE
+		 *    Need to add abs() in XOverlap and probably area calculation as well
+		 */
+		int XOverlap;
+		//3 Cases. Again, can be combined later
+		if (XSmall == 1 && XBig == 0) { //Only X[0] is overlapped in Rect1
+			XOverlap = rangeX1[1] - rangeX2[0];
+		} else if (XSmall == 0 && XBig == 1) { //Only X[1] overlapped
+			XOverlap = rangeX2[1] - rangeX1[0];
+		} else { //Both overlapped
+			//Full length - (right extra space) - (left extra space)
+			XOverlap = (rangeX1[1] - rangeX1[0]) - (rangeX1[1] - rangeX2[1]) - (rangeX1[0] - rangeX2[0]);
+		}
+		cout << "XOverlap: " << XOverlap << endl;
 	}
 
 
