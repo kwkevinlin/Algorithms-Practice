@@ -4,6 +4,7 @@
 
 using namespace std;
 
+void setInsert(set<int>&, char, char);
 
 int main() {
 
@@ -35,30 +36,44 @@ int main() {
 	//				012345678910         21  25
 	string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)";
 
-
-	/*
-	 * Issue:
-	 *     Negative numbers mess up inputs because of position
-	 */
-
 	// Storing in unordered set to avoid dealing with duplicates
 	set<int> X1;
 	set<int> Y1;
 	set<int> X2;
 	set<int> Y2;
+	int count = 0;
 	for (int i = 0; i < input.length(); i++) {
-		if (i == 1 || i == 7 || i == 13 || i == 19) {
-			X1.insert(input[i] - '0');
+		//		if (i == 1 || i == 7 || i == 13 || i == 19) {
+		//			X1.insert(input[i] - '0');
+		//		}
+		//		else if (i == 3 || i == 9 || i == 15 || i == 21) {
+		//			Y1.insert(input[i] - '0');
+		//		}
+		//		else if (i == 25 || i == 31 || i == 37 || i == 43) {
+		//			X2.insert(input[i] - '0');
+		//		}
+		//		else if (i == 27 || i == 33 || i == 39 || i == 45) {
+		//			Y2.insert(input[i] - '0');
+		//		}
+
+		if (input[i] != '(' && input[i] != ')' && input[i] != ',' && input[i] != '-') {
+
+			if (count < 8) { //Rectangle 1
+				if (count % 2 == 0) { //X coordinate
+					setInsert(X1, input[i], input[i-1]);
+				} else { //Y coordinate
+					setInsert(Y1, input[i], input[i-1]);
+				}
+			} else { //Rectangle 2
+				if (count % 2 == 0) {
+					setInsert(X2, input[i], input[i-1]);
+				} else {
+					setInsert(Y2, input[i], input[i-1]);
+				}
+			}
+			count++;
 		}
-		else if (i == 3 || i == 9 || i == 15 || i == 21) {
-			Y1.insert(input[i] - '0');
-		}
-		else if (i == 25 || i == 31 || i == 37 || i == 43) {
-			X2.insert(input[i] - '0');
-		}
-		else if (i == 27 || i == 33 || i == 39 || i == 45) {
-			Y2.insert(input[i] - '0');
-		}
+
 	}
 
 	/* Range intercept will be:
@@ -75,14 +90,12 @@ int main() {
 	copy(Y1.begin(), Y1.end(), rangeY1.begin());
 	copy(X2.begin(), X2.end(), rangeX2.begin());
 	copy(Y2.begin(), Y2.end(), rangeY2.begin());
-	for (auto kv : Y2)
-		cout << kv << endl;
 
 	int overlap = 0;
 	//Check if overlap
 	if (rangeX2[0] >= rangeX1[0] && rangeX2[1] <= rangeX1[1]) {
 		cout << "X overlap\n";
-		cout << rangeY2[0] << ">=" << rangeY1[0] <<  "&&" << rangeY2[1] << "<=" << rangeY1[1] << endl;
+		cout << rangeY2[0] << " >= " << rangeY1[0] <<  " && " << rangeY2[1] << " <= " << rangeY1[1] << endl;
 		if (rangeY2[0] >= rangeY1[0] && rangeY2[1] <= rangeY1[1]) {
 			cout << "Y overlap\n";
 			overlap = 1;
@@ -90,4 +103,13 @@ int main() {
 	}
 
 
+}
+
+void setInsert(set<int> &setCoor, char current, char prev) {
+
+	if (prev == '-') { //Is negative number
+		setCoor.insert((current - '0') * -1);
+	} else { //Positive
+		setCoor.insert(current - '0');
+	}
 }
