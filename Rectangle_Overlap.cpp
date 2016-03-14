@@ -34,7 +34,8 @@ int main() {
 	//				 x y   x y   x y   x y   x y   x y   x y   x y
 	//string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)";
 	//				012345678910         21  25
-	string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)";
+	//string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)";
+	string input = "(1,1),(1,4),(4,4),(4,1),(3,2),(5,2),(3,0),(5,0)";
 
 	// Storing in unordered set to avoid dealing with duplicates
 	set<int> X1;
@@ -43,19 +44,8 @@ int main() {
 	set<int> Y2;
 	int count = 0;
 	for (int i = 0; i < input.length(); i++) {
-		//		if (i == 1 || i == 7 || i == 13 || i == 19) {
-		//			X1.insert(input[i] - '0');
-		//		}
-		//		else if (i == 3 || i == 9 || i == 15 || i == 21) {
-		//			Y1.insert(input[i] - '0');
-		//		}
-		//		else if (i == 25 || i == 31 || i == 37 || i == 43) {
-		//			X2.insert(input[i] - '0');
-		//		}
-		//		else if (i == 27 || i == 33 || i == 39 || i == 45) {
-		//			Y2.insert(input[i] - '0');
-		//		}
 
+		//Only parse if it is a number
 		if (input[i] != '(' && input[i] != ')' && input[i] != ',' && input[i] != '-') {
 
 			if (count < 8) { //Rectangle 1
@@ -92,7 +82,14 @@ int main() {
 	copy(Y2.begin(), Y2.end(), rangeY2.begin());
 
 	int overlap = 0;
+
+	/*
+	 * Bug in overlap detection for 3rd input case
+	 *    Partial overlap
+	 */
+
 	//Check if overlap
+	cout << rangeX2[0] << " >= " << rangeX1[0] <<  " && " << rangeX2[1] << " <= " << rangeX1[1] << endl;
 	if (rangeX2[0] >= rangeX1[0] && rangeX2[1] <= rangeX1[1]) {
 		cout << "X overlap\n";
 		cout << rangeY2[0] << " >= " << rangeY1[0] <<  " && " << rangeY2[1] << " <= " << rangeY1[1] << endl;
@@ -100,6 +97,20 @@ int main() {
 			cout << "Y overlap\n";
 			overlap = 1;
 		}
+	}
+
+	//Check area of overlap
+	if (overlap == 1) {
+		/*
+		 * A. Get area of Rect1
+		 * B. Determine area of overlap
+		 * C. Get B/A
+		 */
+
+		// A. Get area of Rect1
+		int areaRect1 = ( rangeX1[1] - rangeX1[0] ) * ( rangeY1[1] - rangeY1[0] );
+
+		// B. Determine area of overlap
 	}
 
 
