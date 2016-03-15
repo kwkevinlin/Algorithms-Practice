@@ -32,10 +32,13 @@ int main() {
 	 *
 	 */
 	//				 x y   x y   x y   x y   x y   x y   x y   x y
-	string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)";
+	//string input = "(1,1),(4,4),(4,1),(1,4),(4,2),(3,2),(4,1),(3,1)"; //Quadrant 1 - Perfect overlap
 	//				012345678910         21  25
-	//string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)";
-	//string input = "(1,1),(1,4),(4,4),(4,1),(3,2),(5,2),(3,0),(5,0)";
+	//string input = "(1,1),(1,4),(4,4),(4,1),(3,2),(5,2),(3,0),(5,0)"; //Quadrant 1
+	//string input = "(-1,1),(-4,1),(-4,4),(-1,4),(-3,1),(-4,2),(-3,2),(-4,1)"; //Quadrant 2
+	//string input = "(-1,-1),(-1,-4),(-4,-4),(-4,-1),(-5,0),(-3,0),(-5,-2),(-3,-2)"; //Quadrant 3
+	//string input = "(1,-1),(1,-4),(4,-4),(4,-1),(3,0),(5,0),(3,-2),(5,-2)"; //Quadrant 4
+	string input = "(1,1),(4,1),(1,-2),(4,-2),(3,-1),(5,-1),(3,-3),(5,-3)"; //Quadrant 1 & 4 intersect
 
 	// Storing in unordered set to avoid dealing with duplicates
 	set<int> X1;
@@ -128,7 +131,7 @@ int main() {
 
 		/*
 		 * BUG LOOK HERE
-		 *    Need to add abs() in XOverlap and probably area calculation as well
+		 *    Need to add abs() in XOverlap
 		 */
 		int XOverlap;
 		//3 Cases. Again, can be combined later
