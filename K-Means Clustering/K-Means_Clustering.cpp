@@ -10,8 +10,8 @@ int main() {
 	 *	K-Means Clustering that runs for:
 	 *     Arbitrary number of dimensions
 	 *
-	 *  For for the Parallel (pthreads) version of this code, please visit: https://github.com/kwkevinlin/CPU-Parallel-Computing/blob/master/(Lab%201)%20KMeans%20Clustering%20with%20Pthreads/serial-code-Optimized.c
-	 *  For the non-parallel, slightly optimized version of this code, please visit: https://github.com/kwkevinlin/CPU-Parallel-Computing/blob/master/(Lab%201)%20KMeans%20Clustering%20with%20Pthreads/main.c
+	 *  For for the Parallel (pthreads) version of this code, please use make to compile main.c.
+	 *  For the non-parallel, better optimized version of this code, please visit: https://github.com/kwkevinlin/CPU-Parallel-Computing/blob/master/(Lab%201)%20KMeans%20Clustering%20with%20Pthreads/main.c
 	 *  
 	 *
 	 *
