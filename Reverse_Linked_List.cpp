@@ -19,6 +19,7 @@ struct Node
 };
 
 void reverseList(Node*, Node*, Node**);
+void printList(Node*);
 
 int main() {
 
@@ -33,10 +34,14 @@ int main() {
 	head->next->next->next->next->next->next = new Node(7);
 	head->next->next->next->next->next->next->next = new Node(8);
 
+	cout << "Previous:\n";
+	printList(head);
+
 	Node* reversedList;
 	reverseList(head, NULL, &reversedList); //Passing reversedList by reference to update head
 
-	cout << "Rev: " << reversedList->data << endl;
+	cout << "\n\nReversed:\n";
+	printList(reversedList);
 }
 
 void reverseList(Node* current, Node* prev, Node** head) {
@@ -50,4 +55,13 @@ void reverseList(Node* current, Node* prev, Node** head) {
 	//Tail recursion returns
 	current->next = prev;
 
+}
+
+void printList(Node* itr) {
+
+	cout << itr->data << " ";
+
+	if (itr->next != NULL) {
+		printList(itr->next);
+	}
 }
