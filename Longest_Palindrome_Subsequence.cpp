@@ -8,13 +8,23 @@ int main() {
 
 	/*
 	 * Find the Longest Palindrome in a string
-	 *     This solution find the longest palindrome in O(n^2) time
-	 *     Manacher’s Algorithm can be used the find the same thing in O(n), linear time
+	 *     This solution find the longest palindrome in O(n^2) time and O(1) space
+	 *     Manacher’s Algorithm can be used to solve this problem in O(n) (linear time)
 	 *
+	 * Explanation:
+	 *     For each element [i] in the str (starting from 1), check if i[left] == i[right].
+	 *     If true, iteratively check left-- and right++ to determine how long the palindrome
+	 *     is. If new max palindrome is found, update max value, starting index of current
+	 *     palindrome, and length. Before function terminates, return the longest palindromic
+	 *     subsequence found by str.substring(startingIndex, length).
+	 *
+	 * Complexity:
+	 *     Time: O(n^2)
+	 *     Space: O(1)
 	 */
 
-	string str = "forgeeksskeegfor"; //Palimdrome: "geeksskeeg"
-	//string str = "foriifor"; //ii - Even
+	string str = "forgeeksskeegfor"; //Palimdrome: "geeksskeeg" - Even
+	//string str = "foriifor"; //"ii" - Even
 
 	cout << "Longest palindromic subsequence: \"" << longestPalindrome(str) << "\"" << endl;
 
