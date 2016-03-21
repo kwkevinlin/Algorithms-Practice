@@ -1,11 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 struct Node* mergeTree(Node*, Node*);
 void toVector(Node*, vector<Node*>&);
+void mergeVec(int, int, Node*, Node*, unordered_set<Node*>);
 
 struct Node {
 
@@ -76,6 +78,35 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	vector<Node*> vecTree2;
 	toVector(tree2, vecTree2);
 
+	//Combine two vectors and remove duplicate
+	int minLength, maxLength;
+	unordered_set<Node*> setMerged;
+
+	//Throw following into mergeVec();
+	if (vecTree1.size() > vecTree2.size()) {
+		minLength = vecTree2.size();
+		maxLength = vecTree1.size();
+		for (int i = 0; i < minLength; i++) {
+			setMerged.insert(vecTree1[i]);
+			setMerged.insert(vecTree2[i]);
+		}
+		for (int i = minLength; i < maxLength; i++) {
+			setMerged.insert(vecTree1[i]);
+		}
+	} else {
+		minLength = vecTree1.size();
+		maxLength = vecTree2.size();
+	}
+
+	//Test set
+	/*
+	 * Issues: Set inserts to front it seems, so order wrong
+	 *     BST insertion will be extremely unbalanced
+	 */
+	cout << endl;
+	for (auto kv : setMerged) {
+		cout << kv->data << " ";
+	}
 
 	return tree1; //returning value of pointer, or pointer's address (dangling)?
 }
@@ -93,4 +124,8 @@ void toVector(Node* head, vector<Node*> &myVec) {
 	if (head->right != NULL) {
 		toVector(head->right, myVec);
 	}
+}
+
+void mergeVec(int smallLength, int largeLength, Node* tree1, Node* tree2, unordered_set<Node*> &setMerged) {
+	//Throw merging into here later
 }
