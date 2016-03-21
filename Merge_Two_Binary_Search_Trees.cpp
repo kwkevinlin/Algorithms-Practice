@@ -50,6 +50,13 @@ int main() {
 	tree2->left = new Node(40);
 	tree2->right = new Node(120);
 
+	/*
+	 *
+	 *  RE-DO THIS PROBLEM
+	 *		Do recursive way instead, way better complexity
+	 *
+	 */
+
 	Node* newHead = mergeTree(tree1, tree2);
 	cout << "\n\n" << newHead->data << endl;
 
@@ -86,13 +93,7 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	if (vecTree1.size() > vecTree2.size()) {
 		minLength = vecTree2.size();
 		maxLength = vecTree1.size();
-		for (int i = 0; i < minLength; i++) {
-			setMerged.insert(vecTree1[i]);
-			setMerged.insert(vecTree2[i]);
-		}
-		for (int i = minLength; i < maxLength; i++) {
-			setMerged.insert(vecTree1[i]);
-		}
+		mergeVec(minLength, maxLength, tree2, tree1, setMerged);
 	} else {
 		minLength = vecTree1.size();
 		maxLength = vecTree2.size();
@@ -108,7 +109,10 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 		cout << kv->data << " ";
 	}
 
-	return tree1; //returning value of pointer, or pointer's address (dangling)?
+	//Create balanced BST
+
+
+	return tree1; //returning what it is pointing to
 }
 
 void toVector(Node* head, vector<Node*> &myVec) {
@@ -119,13 +123,13 @@ void toVector(Node* head, vector<Node*> &myVec) {
 	}
 
 	//Passed by reference, so it modifies vector directly
-	myVec.push_back(head); //Is this storing in ADDRESS of head (the ptr), or value of ptr (the data)?
+	myVec.push_back(head); //Storing in data of head
 
 	if (head->right != NULL) {
 		toVector(head->right, myVec);
 	}
 }
 
-void mergeVec(int smallLength, int largeLength, Node* tree1, Node* tree2, unordered_set<Node*> &setMerged) {
+void mergeVec(int smallLength, int bigLength, Node* smallTree, Node* bigTree, unordered_set<Node*> &setMerged) {
 	//Throw merging into here later
 }
