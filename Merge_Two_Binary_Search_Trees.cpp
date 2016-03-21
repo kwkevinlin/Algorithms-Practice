@@ -5,7 +5,7 @@
 using namespace std;
 
 struct Node* mergeTree(Node*, Node*);
-void toVector(Node*, vector<Node*>);
+void toVector(Node*, vector<Node*>&);
 
 struct Node {
 
@@ -67,6 +67,12 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	//Traverse both trees inOrder and store results in vector
 	vector<Node*> vecTree1;
 	toVector(tree1, vecTree1);
+
+	//Testing toVector
+	for (int i = 0; i < vecTree1.size(); i++) {
+		cout << vecTree1[i]->data << " ";
+	}
+
 	vector<Node*> vecTree2;
 	toVector(tree2, vecTree2);
 
@@ -74,14 +80,17 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	return tree1; //returning value of pointer, or pointer's address (dangling)?
 }
 
-void toVector(Node* head, vector<Node*> myVec) {
-	if (head->left != NULL) {
+void toVector(Node* head, vector<Node*> &myVec) {
 
+	//Storing via inOrder
+	if (head->left != NULL) {
+		toVector(head->left, myVec);
 	}
 
-	//store
+	//Passed by reference, so it modifies vector directly
+	myVec.push_back(head); //Is this storing in ADDRESS of head (the ptr), or value of ptr (the data)?
 
 	if (head->right != NULL) {
-
+		toVector(head->right, myVec);
 	}
 }
