@@ -7,7 +7,7 @@ using namespace std;
 
 struct Node* mergeTree(Node*, Node*);
 void toVector(Node*, vector<Node*>&);
-void mergeVec(int, int, Node*, Node*, unordered_set<Node*>);
+void mergeVec(int, int, vector<Node*>, vector<Node*>, unordered_set<Node*>&);
 
 struct Node {
 
@@ -52,8 +52,8 @@ int main() {
 
 	/*
 	 *
-	 *  RE-DO THIS PROBLEM
-	 *		Do recursive way instead, way better complexity
+	 *  Disregard last note,
+	 *  	Current approach is faster!
 	 *
 	 */
 
@@ -62,28 +62,25 @@ int main() {
 
 }
 
-//Node** mergeTree(Node* tree1, Node* tree2) {
-//	cout << tree1->data << endl;
-//	cout << tree2->data << endl;
-//
-//	return &tree1;
-//}
 Node* mergeTree(Node* tree1, Node* tree2) {
-
-	cout << tree1->data << endl;
-	cout << tree2->data << endl;
 
 	//Traverse both trees inOrder and store results in vector
 	vector<Node*> vecTree1;
 	toVector(tree1, vecTree1);
+	vector<Node*> vecTree2;
+	toVector(tree2, vecTree2);
 
 	//Testing toVector
+	cout << "\nvecTree1:\n";
 	for (int i = 0; i < vecTree1.size(); i++) {
 		cout << vecTree1[i]->data << " ";
 	}
 
-	vector<Node*> vecTree2;
-	toVector(tree2, vecTree2);
+	//Testing toVector
+	cout << "\nvecTree2:\n";
+	for (int i = 0; i < vecTree2.size(); i++) {
+		cout << vecTree2[i]->data << " ";
+	}
 
 	//Combine two vectors and remove duplicate
 	int minLength, maxLength;
@@ -93,7 +90,7 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	if (vecTree1.size() > vecTree2.size()) {
 		minLength = vecTree2.size();
 		maxLength = vecTree1.size();
-		mergeVec(minLength, maxLength, tree2, tree1, setMerged);
+		mergeVec(minLength, maxLength, vecTree2, vecTree1, setMerged);
 	} else {
 		minLength = vecTree1.size();
 		maxLength = vecTree2.size();
@@ -104,7 +101,7 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	 * Issues: Set inserts to front it seems, so order wrong
 	 *     BST insertion will be extremely unbalanced
 	 */
-	cout << endl;
+	cout << "\nSetMerged:\n";
 	for (auto kv : setMerged) {
 		cout << kv->data << " ";
 	}
@@ -130,6 +127,15 @@ void toVector(Node* head, vector<Node*> &myVec) {
 	}
 }
 
-void mergeVec(int smallLength, int bigLength, Node* smallTree, Node* bigTree, unordered_set<Node*> &setMerged) {
+void mergeVec(int smallLength, int bigLength, vector<Node*> smallTree, vector<Node*> bigTree, unordered_set<Node*> &setMerged) {
 	//Throw merging into here later
+
+	//mergeVec(minLength, maxLength, tree2, tree1, setMerged);
+	for (int i = 0; i < smallLength; i++) {
+		setMerged.insert(smallTree[i]);
+		setMerged.insert(bigTree[i]);
+	}
+	for (int i = smallLength; i < bigLength; i++) {
+		setMerged.insert(bigTree[i]);
+	}
 }
