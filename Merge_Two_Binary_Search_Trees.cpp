@@ -38,6 +38,14 @@ int main() {
 	         50    300         40   120
 	        /  \
 	      20    70
+	      
+	    Approach:
+	    Read each tree in inOrder into vectors to get the sorted sequence. Assuming no duplicates, merge 
+	    the two vectors together, then rebuild the tree using a balanced BST algorithm.
+	    
+	    Complexity:
+	    O(n+m)
+	    
 	 */
 
 	//Creating trees manually for simplicity
