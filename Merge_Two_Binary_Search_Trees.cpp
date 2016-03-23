@@ -51,15 +51,25 @@ int main() {
 	tree2->left = new Node(40);
 	tree2->right = new Node(120);
 
-	/*
-	 *
-	 *  Disregard last note,
-	 *  	Current approach is faster!
-	 *
-	 */
-
+	//newHead = head of merged tree
 	Node* newHead = mergeTree(tree1, tree2);
-	cout << "\n\n" << newHead->data << endl;
+
+	//Preorder print tree to confirm results
+	cout << "\n\nPrint Merged Tree in Pre-Order:\n";
+	printTree(newHead);
+
+
+	/* Result of merged tree (balanced)
+	 *
+	 *        New Tree
+	 *           70
+	 *          /  \
+	 *       40     100
+	 *      /  \   /   \
+	 *    20   50 80   120
+	 *                   \
+	 *                   300
+	 */
 
 }
 
@@ -168,4 +178,17 @@ Node* buildBalancedBST(vector<Node*> vecMerged, int start, int end) {
 	return newNode;
 }
 
+void printTree(Node* head) {
 
+	//Pre-Order print to retain structure
+	cout << head->data << " ";
+
+	if (head->left != NULL) {
+		printTree(head->left);
+	}
+
+	if (head->right != NULL) {
+		printTree(head->right);
+	}
+
+}
