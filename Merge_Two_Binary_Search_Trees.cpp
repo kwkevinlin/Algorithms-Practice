@@ -1,14 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include <unordered_set>
 
 using namespace std;
 
 struct Node* mergeTree(Node*, Node*);
 void toVector(Node*, vector<Node*>&);
-void mergeVec(int, int, vector<Node*>, vector<Node*>, unordered_set<Node*>&);
-Node* buildBalancedBST(unordered_set<Node*>, int, int);
+void mergeVec(int, int, vector<Node*>, vector<Node*>, vector<Node*>&);
+Node* buildBalancedBST(vector<Node*>, int, int);
 
 struct Node {
 
@@ -83,35 +82,29 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 
 	//Combine two vectors and remove duplicate
 	int minLength, maxLength;
-	unordered_set<Node*> setMerged;
+	vector<Node*> vecMerged;
 
-	//Throw following into mergeVec();
+	//Merge the two sorted vectors
 	if (vecTree1.size() > vecTree2.size()) {
 		minLength = vecTree2.size();
 		maxLength = vecTree1.size();
-		mergeVec(minLength, maxLength, vecTree2, vecTree1, setMerged);
+		mergeVec(minLength, maxLength, vecTree2, vecTree1, vecMerged);
 	} else {
 		minLength = vecTree1.size();
 		maxLength = vecTree2.size();
+		mergeVec(minLength, maxLength, vecTree2, vecTree1, vecMerged);
 	}
 
-	/*
-	 * Issues: Using set (for now), because then we don't have to deal with duplicates
-	 *     However, set can't be access by [] operator
-	 *
-	 * New solution: Change set to just vectors instead, so new functionality to check
-	 *     ordering of how elements are inserted into "vecMerged"
-	 */
-	cout << "\n\nSetMerged:\n";
-	for (auto kv : setMerged) {
-		cout << kv->data << " ";
+	cout << "\n\nvecMerged:\n";
+	for (int i = 0; i < vecMerged.size(); i++) {
+		cout << vecMerged[i]->data << " ";
 	}
 
 	/*
 	 * Return the head of the newly built balanced BST
 	 * */
 	return tree1; //For testing
-	//return buildBalancedBST(setMerged, 0, setMerged.size() - 1);
+	//return buildBalancedBST(vecMerged, 0, vecMerged.size() - 1);
 }
 
 void toVector(Node* head, vector<Node*> &myVec) {
@@ -129,21 +122,40 @@ void toVector(Node* head, vector<Node*> &myVec) {
 	}
 }
 
-void mergeVec(int smallLength, int bigLength, vector<Node*> smallTree, vector<Node*> bigTree, unordered_set<Node*> &setMerged) {
+void mergeVec(int smallLength, int bigLength, vector<Node*> smallTree, vector<Node*> bigTree, vector<Node*> &vecMerged) {
 
-	//mergeVec(minLength, maxLength, vecTree2, vecTree1, setMerged);
-	for (int i = 0; i < smallLength; i++) {
-		setMerged.insert(smallTree[i]);
-		setMerged.insert(bigTree[i]);
+	int i = 0; //smallTree counter
+	int	j = 0; //bigTree counter
+
+	//Compare and merge until one is finished pushing (no more elements)
+	while (i < smallLength && j < bigLength) {
+		if (smallTree[i]->data < bigTree[j]->data) {
+			vecMerged.push_back(smallTree[i]);
+			i++;
+		}
+		else if (smallTree[i]->data > bigTree[j]->data) {
+			vecMerged.push_back(bigTree[j]);
+			j++;
+		}
 	}
-	for (int i = smallLength; i < bigLength; i++) {
-		setMerged.insert(bigTree[i]);
+
+	//Fill in rest
+	if (i < smallLength) {
+		for (int x = i; x < smallLength; x++) {
+			vecMerged.push_back(smallTree[x]);
+		}
 	}
+	else if (j < bigLength) {
+		for (int x = j; x < bigLength; x++) {
+			vecMerged.push_back(bigTree[x]);
+		}
+	}
+
 }
 
-Node* buildBalancedBST(unordered_set<Node*>, int start, int end) {
+Node* buildBalancedBST(vector<Node*> vecMerged, int start, int end) {
 
-	//No more to create, then child == NULL
+	//Base case, then child == NULL
 	if (start > end)
 		return NULL;
 
