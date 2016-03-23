@@ -8,6 +8,7 @@ struct Node* mergeTree(Node*, Node*);
 void toVector(Node*, vector<Node*>&);
 void mergeVec(int, int, vector<Node*>, vector<Node*>, vector<Node*>&);
 Node* buildBalancedBST(vector<Node*>, int, int);
+void printTree(Node*);
 
 struct Node {
 
@@ -64,10 +65,10 @@ int main() {
 
 Node* mergeTree(Node* tree1, Node* tree2) {
 
-	//Traverse both trees inOrder and store results in vector
+	//Traverse both trees inOrder then store them both into vectors
 	vector<Node*> vecTree1;
-	toVector(tree1, vecTree1);
 	vector<Node*> vecTree2;
+	toVector(tree1, vecTree1);
 	toVector(tree2, vecTree2);
 
 	//Printout vectors
@@ -80,11 +81,10 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 		cout << vecTree2[i]->data << " ";
 	}
 
-	//Combine two vectors and remove duplicate
+	//Merge the two (sorted) vectors
 	int minLength, maxLength;
 	vector<Node*> vecMerged;
 
-	//Merge the two sorted vectors
 	if (vecTree1.size() > vecTree2.size()) {
 		minLength = vecTree2.size();
 		maxLength = vecTree1.size();
@@ -103,8 +103,7 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	/*
 	 * Return the head of the newly built balanced BST
 	 * */
-	return tree1; //For testing
-	//return buildBalancedBST(vecMerged, 0, vecMerged.size() - 1);
+	return buildBalancedBST(vecMerged, 0, vecMerged.size() - 1);
 }
 
 void toVector(Node* head, vector<Node*> &myVec) {
@@ -159,8 +158,14 @@ Node* buildBalancedBST(vector<Node*> vecMerged, int start, int end) {
 	if (start > end)
 		return NULL;
 
-	int mid = (end-start)/2;
+	int mid = (start + end)/2;
 
+	Node* newNode = vecMerged[mid];
+
+	newNode->left = buildBalancedBST(vecMerged, start, mid - 1);
+	newNode->right = buildBalancedBST(vecMerged, mid + 1, end);
+
+	return newNode;
 }
 
 
