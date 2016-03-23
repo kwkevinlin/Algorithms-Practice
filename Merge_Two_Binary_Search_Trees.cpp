@@ -8,7 +8,7 @@ using namespace std;
 struct Node* mergeTree(Node*, Node*);
 void toVector(Node*, vector<Node*>&);
 void mergeVec(int, int, vector<Node*>, vector<Node*>, unordered_set<Node*>&);
-Node* buildBalancedBST(unordered_set<Node*>);
+Node* buildBalancedBST(unordered_set<Node*>, int, int);
 
 struct Node {
 
@@ -95,10 +95,12 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 		maxLength = vecTree2.size();
 	}
 
-	//Test set
 	/*
-	 * Issues: Set inserts to front it seems, so order wrong
-	 *     BST insertion will be extremely unbalanced
+	 * Issues: Using set (for now), because then we don't have to deal with duplicates
+	 *     However, set can't be access by [] operator
+	 *
+	 * New solution: Change set to just vectors instead, so new functionality to check
+	 *     ordering of how elements are inserted into "vecMerged"
 	 */
 	cout << "\n\nSetMerged:\n";
 	for (auto kv : setMerged) {
@@ -108,7 +110,8 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	/*
 	 * Return the head of the newly built balanced BST
 	 * */
-	return buildBalancedBST(setMerged);
+	return tree1; //For testing
+	//return buildBalancedBST(setMerged, 0, setMerged.size() - 1);
 }
 
 void toVector(Node* head, vector<Node*> &myVec) {
@@ -127,9 +130,8 @@ void toVector(Node* head, vector<Node*> &myVec) {
 }
 
 void mergeVec(int smallLength, int bigLength, vector<Node*> smallTree, vector<Node*> bigTree, unordered_set<Node*> &setMerged) {
-	//Throw merging into here later
 
-	//mergeVec(minLength, maxLength, tree2, tree1, setMerged);
+	//mergeVec(minLength, maxLength, vecTree2, vecTree1, setMerged);
 	for (int i = 0; i < smallLength; i++) {
 		setMerged.insert(smallTree[i]);
 		setMerged.insert(bigTree[i]);
@@ -139,6 +141,14 @@ void mergeVec(int smallLength, int bigLength, vector<Node*> smallTree, vector<No
 	}
 }
 
-Node* buildBalancedBST(unordered_set<Node*>) {
+Node* buildBalancedBST(unordered_set<Node*>, int start, int end) {
+
+	//No more to create, then child == NULL
+	if (start > end)
+		return NULL;
+
+	int mid = (end-start)/2;
 
 }
+
+
