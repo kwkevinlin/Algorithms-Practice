@@ -8,6 +8,7 @@ using namespace std;
 struct Node* mergeTree(Node*, Node*);
 void toVector(Node*, vector<Node*>&);
 void mergeVec(int, int, vector<Node*>, vector<Node*>, unordered_set<Node*>&);
+Node* buildBalancedBST(unordered_set<Node*>);
 
 struct Node {
 
@@ -70,13 +71,11 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	vector<Node*> vecTree2;
 	toVector(tree2, vecTree2);
 
-	//Testing toVector
-	cout << "\nvecTree1:\n";
+	//Printout vectors
+	cout << "vecTree1:\n";
 	for (int i = 0; i < vecTree1.size(); i++) {
 		cout << vecTree1[i]->data << " ";
 	}
-
-	//Testing toVector
 	cout << "\nvecTree2:\n";
 	for (int i = 0; i < vecTree2.size(); i++) {
 		cout << vecTree2[i]->data << " ";
@@ -101,15 +100,15 @@ Node* mergeTree(Node* tree1, Node* tree2) {
 	 * Issues: Set inserts to front it seems, so order wrong
 	 *     BST insertion will be extremely unbalanced
 	 */
-	cout << "\nSetMerged:\n";
+	cout << "\n\nSetMerged:\n";
 	for (auto kv : setMerged) {
 		cout << kv->data << " ";
 	}
 
-	//Create balanced BST
-
-
-	return tree1; //returning what it is pointing to
+	/*
+	 * Return the head of the newly built balanced BST
+	 * */
+	return buildBalancedBST(setMerged);
 }
 
 void toVector(Node* head, vector<Node*> &myVec) {
@@ -138,4 +137,8 @@ void mergeVec(int smallLength, int bigLength, vector<Node*> smallTree, vector<No
 	for (int i = smallLength; i < bigLength; i++) {
 		setMerged.insert(bigTree[i]);
 	}
+}
+
+Node* buildBalancedBST(unordered_set<Node*>) {
+
 }
