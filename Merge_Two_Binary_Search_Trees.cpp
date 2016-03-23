@@ -32,12 +32,12 @@ int main() {
 
 	/* Merging two Binary Search Trees (BST)
 
-		     Tree 1           Tree 2
-			  100				80
-	          /  \			   /  \
-	        50    300        40   120
-	       / \
-	      20  70
+	           Tree 1           Tree 2
+	            100               80
+	           /   \             /  \
+	         50    300         40   120
+	        /  \
+	      20    70
 	 */
 
 	//Creating trees manually for simplicity
@@ -55,7 +55,7 @@ int main() {
 	Node* newHead = mergeTree(tree1, tree2);
 
 	//Preorder print tree to confirm results
-	cout << "\n\nPrint Merged Tree in Pre-Order:\n";
+	cout << "\n\nMerged Tree in Pre-Order:\n";
 	printTree(newHead);
 
 
