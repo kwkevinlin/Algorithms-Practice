@@ -38,7 +38,7 @@ int main() {
 
 	  Solution:
 	      In order traverse the tree. If in order
-	      traversal is sorted, then tree is BST.
+	      traversal is in sorted order, then tree is a BST.
 
 	*/
 
@@ -49,9 +49,9 @@ int main() {
 	tree->left->right = new Node(7);
 
 	if (verifyBST(tree)) {
-		cout << "Is a BST\n";
+		cout << "Tree is a BST!\n";
 	} else {
-		cout << "NOT a BST\n";
+		cout << "Tree is NOT a BST!\n";
 	}
 
 }
@@ -79,6 +79,16 @@ bool verifyBST(Node* head) {
 }
 
 void verifyBST(Node* itr, vector<int>& inOrderArr) {
+	//Read in inOrder and store into inOrderArr
 
+	if (itr->left != NULL) {
+		verifyBST(itr->left, inOrderArr);
+	}
+
+	inOrderArr.push_back(itr->data);
+
+	if (itr->right != NULL) {
+		verifyBST(itr->right, inOrderArr);
+	}
 
 }
