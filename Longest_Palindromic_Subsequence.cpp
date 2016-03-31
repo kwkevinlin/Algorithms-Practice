@@ -26,17 +26,23 @@ int main() {
 	//string str = "foriifor"; //Palimdrome: "ii" - Even
 	string str = "forgeeksskeegfor"; //"geeksskeeg" - Even
 	//string str = "forgeeksAskeegfor"; //"geeksAskeeg" - Odd
-	//string str = "AmAbcddcb"; //Palindromes: Ama, bcddcb (Longest)
+	//string str = "notpalin"; //None - Test case
+	//string str = "a"; //"a" - Test case
+	//string str = ""; //None - Special Test case
 
-	cout << "Longest palindromic subsequence: \"" << longestPalindrome(str) << "\"" << endl;
+	cout << "Longest palindromic subsequence: " << longestPalindrome(str) << endl;
 
 }
 
 string longestPalindrome(string str) {
 
+	if (str.length() <= 1) {
+		return "(None)"; //Special cases handling
+	}
+
 	//Check for both EVEN and ODD palindromes for each "center", ie each [i] in str
 	int start, end, count, max = -1;
-	int palinStart, length;
+	int palinStart, length = 0;
 
 	//From 1 to length - 1, use each as center to check for palindrome
 	for (int i = 1; i < str.length() - 1; i++) {
@@ -91,9 +97,14 @@ string longestPalindrome(string str) {
 
 	}
 
-	cout << "\nPalinStart: " << palinStart << ", length: " << length << endl << endl;
+	cout << endl;
 
-	return str.substr(palinStart, length);
+	if (length == 0) { 	//None found
+		return "(None)";
+	} else {
+		cout << "PalinStart: " << palinStart << ", length: " << length << endl << endl;
+		return str.substr(palinStart, length);
+	}
 
 }
 
