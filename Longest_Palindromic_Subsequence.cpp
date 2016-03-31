@@ -23,8 +23,10 @@ int main() {
 	 *     Space: O(1)
 	 */
 
-	string str = "forgeeksskeegfor"; //Palimdrome: "geeksskeeg" - Even
-	//string str = "foriifor"; //"ii" - Even
+	//string str = "foriifor"; //Palimdrome: "ii" - Even
+	string str = "forgeeksskeegfor"; //"geeksskeeg" - Even
+	//string str = "forgeeksAskeegfor"; //"geeksAskeeg" - Odd
+	//string str = "AmAbcddcb"; //Palindromes: Ama, bcddcb (Longest)
 
 	cout << "Longest palindromic subsequence: \"" << longestPalindrome(str) << "\"" << endl;
 
@@ -64,11 +66,28 @@ string longestPalindrome(string str) {
 
 		}
 
-		count = 0;
-
 		/* Odd Sequence */
 		start = i - 1;
 		end = i + 1;
+		count = 0;
+		while (start >= 0 && end < str.length()) {
+			if (str[start] == str[end]) {
+				cout << "    Match-> " << str[start] << " : " << str[end] << endl;
+				count++;
+
+				if (count > max) {
+					max = count; 			//Current max palindrome length
+					palinStart = i - count;	//Starting index of this palindrome
+					length = 2 * count + 1;	//For str.substring(palinStart, length)
+					cout << "\t    Current palin length: " << length << endl;
+				}
+				start--;
+				end++;
+			} else {
+				break;
+			}
+
+		}
 
 	}
 
