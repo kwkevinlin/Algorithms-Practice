@@ -18,10 +18,15 @@ int main() {
 	 *     Input: [{}]({{()}}()]
 	 *     Output: No
 	 *
+	 * Solution:
+	 *     Loop through string. If [i] is an opening symbol, push it onto the stack. If it is a closing
+	 *     symbol, check to see if it corresponds to the element on the top of the stack (uses a map here).
+	 *     If it doesn't, return false. Else, at the end of the loop, return true.
+	 *
 	 */
 
-	string input = "[()]";
-	//string input = "[{}]()[{{()}}()]";
+	string input = "[{}]()[{{()}}()]"; //Match
+	//string input = "[{}]({{()}}()]"; //No match
 
 	if (symbolChecker(input)) {
 		cout << "Symbols match!\n";
@@ -37,9 +42,9 @@ bool symbolChecker(string str) {
 	unordered_map<char, char> symbols;
 
 	//Storing complements to hash table
-	symbols['{'] = '}';
-	symbols['['] = ']';
-	symbols['('] = ')';
+	symbols['}'] = '{';
+	symbols[']'] = '[';
+	symbols[')'] = '(';
 
 	//If opening, push onto stack. If closing, check top of stack.
 	for (int i = 0; i < str.length(); i++) {
@@ -49,7 +54,7 @@ bool symbolChecker(string str) {
 		}
 		//If closing
 		else {
-			if (symStack.top() == str[i]) {
+			if (symStack.top() == symbols[str[i]]) {
 				symStack.pop();
 			} else {
 				return false;
