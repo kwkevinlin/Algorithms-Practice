@@ -30,6 +30,7 @@ int main() {
 
     int testCases, length, flag, sumL, sumR;
     
+    //Solution takes in inputs via cin because of the question requirements
     cin >> testCases;
     
     for (int i = 0; i < testCases; i++) {
@@ -51,10 +52,16 @@ int main() {
                     sumR = sumR + storage[k];
                 }
             }
+            
+            //If match, break
             if (sumL == sumR) {
                 flag = 1;
                 break;
             }
+            
+            //Reset for next element [j]
+            sumL = 0;
+            sumR = 0;
         }
         
         if (flag == 1) {
