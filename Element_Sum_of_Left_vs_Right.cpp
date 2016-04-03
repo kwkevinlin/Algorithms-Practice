@@ -28,13 +28,41 @@ int main() {
 	 *  
 	 */
 
-
-
-
-	 2
-3
-1 2 3
-4
-1 2 3 3
+    int testCases, length, flag, sumL, sumR;
+    
+    cin >> testCases;
+    
+    for (int i = 0; i < testCases; i++) {
+        cin >> length;
+        
+        //Temporary storing every element into array
+        int storage[length];
+        for (int j = 0; j < length; j++) {
+            cin >> storage[j];    
+        }
+        
+        //From second from first to second to last
+        flag = 0;
+        for (int j = 1; j < length - 1; j++) {
+            for (int k = 0; k < length; k++) {
+                if (k < j) {
+                    sumL = sumL + storage[k];
+                } else if (k > j) {
+                    sumR = sumR + storage[k];
+                }
+            }
+            if (sumL == sumR) {
+                flag = 1;
+                break;
+            }
+        }
+        
+        if (flag == 1) {
+            cout << "YES\n";
+            flag = 0;
+        } else {
+            cout << "NO\n";
+        }
+    }
 
 }
