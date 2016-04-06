@@ -1,16 +1,17 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <iterator>
+#include <time.h>
+#include <cstdlib>
 
 using namespace std;
+
+int longestIncSubseq(int[], int);
 
 int main() {
 
 	/*
 	 * Find the Longest Increasing Subsequence using
 	 * dynamic programming.
-	 *     Then print out path.
 	 *
 	 * For example:
 	 *     5 2 8 6 3 6 9 7
@@ -23,19 +24,35 @@ int main() {
 	 *
 	 */
 
-	int arr[] = {5, 2, 8, 6, 3, 6, 9, 7};
+	//Standard test case
+	//int arr[] = {5, 2, 8, 6, 3, 6, 9, 7};
 
-	int maxArr[sizeof(arr)/sizeof(arr[0])];
+	//Random test case
+	int arr[8];
+	srand(time(NULL));
+	cout << "Sequence:\n";
+	for (int i = 0; i < 8; i++) {
+		arr[i] = rand() % 10;
+		cout << arr[i] << " ";
+	}
+
+	cout << "\nLongest Increasing Subsequence:\n" << longestIncSubseq(arr, sizeof(arr)/sizeof(arr[0])) << endl;
+
+}
+
+int longestIncSubseq(int arr[], int size) {
+
+	//maxArr stores max dists so far
+	int maxArr[size];
 	int max = -1;
 
 	//DP from start to end, O(n^2) solution
-	for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
+	for (int i = 0; i < size; i++) {
 		//DP base case
 		maxArr[i] = 1;
 		for (int j = 0; j < i; j++) {
 			if (arr[j] < arr[i]) {
 				maxArr[i] = maxArr[j] + 1;
-				cout << i << " " << j << ", " << maxArr[i] << endl;
 
 				if (maxArr[i] > max) {
 					max = maxArr[i];
@@ -44,5 +61,6 @@ int main() {
 		}
 	}
 
-	cout << max << endl;
+	return max;
+
 }
