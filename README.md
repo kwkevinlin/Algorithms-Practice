@@ -1,3 +1,3 @@
 # Algorithms Practice
 
-A repository for miscallaneous practice material!
+A repository for miscallaneous practice material.
