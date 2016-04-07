@@ -18,11 +18,31 @@ int main() {
 	 *
 	 */
 
-	stack<int> stack;
-	stack.push(1);
-	stack.push(3);
-	stack.push(5);
-	stack.push(7);
+	stack<int> stack1;
+	stack1.push(5);
+	stack1.push(3);
+	stack1.push(7);
+	stack1.push(1);
 
+	stack<int> stack2;
+
+	//So stack2 already has an element
+	int tmp = stack1.top();
+	stack1.pop();
+
+	//While stack1 still has elements
+	while (stack1.empty() != true) {
+		if (stack1.top() > stack2.top()) {
+			//Move stack1 element to stack2
+			tmp = stack1.top();
+			stack1.pop();
+			stack2.push(tmp);
+		} else {
+			/*  Pop stack1.top in another var temp, then push every
+				element greater than temp in stack2 onto stack1. Then,
+				push temp into stack2.  */
+
+		}
+	}
 
 }
