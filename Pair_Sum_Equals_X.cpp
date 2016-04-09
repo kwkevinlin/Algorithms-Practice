@@ -1,27 +1,7 @@
 #include <iostream>
+#include <unordered_set>
 
 using namespace std;
-
-struct Node;
-Node* buildTree(int[], int, int);
-void printTree(Node*);
-
-struct Node {
-	int data;
-	Node* left;
-	Node* right;
-
-	Node() {
-		data = -1;
-		left = NULL;
-		right = NULL;
-	}
-	Node(int n) {
-		data = n;
-		left = NULL;
-		right = NULL;
-	}
-};
 
 int main() {
 
@@ -42,19 +22,32 @@ int main() {
 	cin >> cases;
 
 	for (int i = 0; i < cases; i++) {
-		cin >> flavors;
+		cin >> sum >> flavors;
 
 		//Read flavors cost into cost[]
 		int cost[flavors];
+		unordered_set<int> hash;
 		for (int j = 0; j < flavors; j++) {
 			cin >> n;
 			cost[j] = n;
+			hash.insert(n);
 		}
 
+		int tmp;
+		for (int j = 0; j < flavors; j++) {
+			tmp = sum - cost[j];
+			if (hash.count(tmp) > 0) {
+				if (cost[j] > tmp) {
+					cout << tmp << " " << cost[j] << endl;
+				} else {
+					cout << cost[j] << " " << tmp << endl;
+				}
+				break;
+			}
+		}
 
 
 	}
 	return 0;
-
 
 }
