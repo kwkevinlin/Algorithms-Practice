@@ -1,5 +1,5 @@
 #include <iostream>
-#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -15,8 +15,6 @@ int main() {
 	 *
 	 */
 
-	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
-
 	int cases, flavors, n, sum;
 
 	cin >> cases;
@@ -26,11 +24,11 @@ int main() {
 
 		//Read flavors cost into cost[]
 		int cost[flavors];
-		unordered_set<int> hash;
+		unordered_map<int, int> hash;
 		for (int j = 0; j < flavors; j++) {
 			cin >> n;
 			cost[j] = n;
-			hash.insert(n);
+			hash[n] = j;
 		}
 
 		int tmp;
@@ -38,9 +36,9 @@ int main() {
 			tmp = sum - cost[j];
 			if (hash.count(tmp) > 0) {
 				if (cost[j] > tmp) {
-					cout << tmp << " " << cost[j] << endl;
+					cout << hash[tmp] + 1 << " " << hash[j] + 1 << endl;
 				} else {
-					cout << cost[j] << " " << tmp << endl;
+					cout << hash[j] + 1 << " " << hash[tmp] + 1 << endl;
 				}
 				break;
 			}
