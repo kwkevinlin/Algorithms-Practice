@@ -5,6 +5,7 @@ using namespace std;
 
 bool isSubtree(struct Node*, Node*);
 void parseToVector(Node*, vector<Node*>&);
+bool compareVector(vector<Node*>, vector<Node*>);
 
 struct Node {
 
@@ -27,7 +28,7 @@ struct Node {
 
 int main() {
 
-	/* Merging two Binary Search Trees (BST)
+	/* Checking if one Tree is a subtree of another
 
 	          Tree 1         Subtree of 1
 	           100               50
@@ -57,9 +58,9 @@ int main() {
 	tree2->right = new Node(70);
 
 	if (isSubtree(tree1, tree2)) {
-		cout << "Tree 2 is a subtree\n";
+		cout << "\n\nTree 2 is a subtree!\n";
 	} else {
-		cout << "Tree 2 is NOT a subtree\n";
+		cout << "\n\nTree 2 is NOT a subtree!\n";
 	}
 
 }
@@ -99,11 +100,14 @@ bool isSubtree(Node* tree1, Node* tree2) {
 	 * Notice the two extra child of 20
 	 *    Current algorithm will still verify Tree 2 as subtree even
 	 *    though it's just "a part of" the subtree.
+	 *        Edit: That is fine though, right? Tree 2 is still a
+	 *        subtree of Tree 1.
 	 *
 	 */
 
+	//compareVector returns tree is subtree (in vecTree2) is found in vecTree1
+	return compareVector(vecTree1, vecTree2);
 
-	return false;
 }
 
 void parseToVector(Node* tree, vector<Node*> &vecTree) {
@@ -118,5 +122,29 @@ void parseToVector(Node* tree, vector<Node*> &vecTree) {
 	if (tree->right != NULL) {
 		parseToVector(tree->right, vecTree);
 	}
+
+}
+
+bool compareVector(vector<Node*> tree1, vector<Node*> tree2) {
+
+	bool match;
+
+	for (int i = 0; i < tree1.size(); i++) {
+		//If current match tree2's head
+		if (tree1[i]->data == tree2[0]->data) {
+			match = false;
+			//Check for every subsequent element in tree2
+			for (int j = 0; j < tree2.size(); j++) {
+				//If not out of bound and matches
+				if (i + j < tree1.size() && tree1[i+j]->data == tree2[j]->data) {
+					match = true;
+				} else {
+					match = false;
+				}
+			}
+		}
+	}
+
+	return match;
 
 }
