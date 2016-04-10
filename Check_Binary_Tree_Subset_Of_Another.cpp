@@ -28,7 +28,7 @@ struct Node {
 
 int main() {
 
-	/* Checking if one Tree is a subtree of another
+	/* Check if one Tree is a subtree of another
 
 	          Tree 1         Subtree of 1
 	           100               50
@@ -42,7 +42,11 @@ int main() {
 	   check if vector 2 (subtree) is contained in vector 1 (tree 1).
 
 	   Note:
-	   There might be a more efficient algorithm, but I'll start with this one.
+	   1. There might be a more efficient algorithm, but I'll start with this one.
+	   2. Algorithm checks for subtree, not subset
+
+	   Current Algorithm Time Complexity:
+	       O(mn), where m and n is the number of nodes in Tree 1 and Tree 2.
 
 	 */
 
@@ -82,28 +86,6 @@ bool isSubtree(Node* tree1, Node* tree2) {
 	for (int i = 0; i < vecTree2.size(); i++) {
 		cout << vecTree2[i]->data << " ";
 	}
-
-	/*
-	 * Traverse vecTree1. If [i]->data == head of subtree, then check
-	 * subsequent values to see if they are identical. If yes, then
-	 * isSubtree is true. Else, false.
-	 *
-	 * Potential Issues:
-	 * What if the trees look like:
-	 *
-	 *         Tree 1      Tree 2 (SubTree)
-	 *          100              50
-	 *       50    300         20  70
-	 *     20  70
-	 *   10 40
-	 *
-	 * Notice the two extra child of 20
-	 *    Current algorithm will still verify Tree 2 as subtree even
-	 *    though it's just "a part of" the subtree.
-	 *        Edit: That is fine though, right? Tree 2 is still a
-	 *        subtree of Tree 1.
-	 *
-	 */
 
 	//compareVector returns tree is subtree (in vecTree2) is found in vecTree1
 	return compareVector(vecTree1, vecTree2);
