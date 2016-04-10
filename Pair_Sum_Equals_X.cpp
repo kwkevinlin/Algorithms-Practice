@@ -14,6 +14,22 @@ int main() {
 	 * Ice Cream Parlor
 	 * https://www.hackerrank.com/challenges/icecream-parlor
 	 *
+	 * Note:
+	 *     Known issue. If input:
+	 *     1
+	 *     4
+	 *     5
+	 *     2 0 1 4 3
+	 *
+	 *     Output:
+	 *     1 0
+	 *
+	 *     Reason: 4 - 2 = 2. Since 2 (result) is in array,
+	 *     but is itself, it counts as found. So to fix,
+	 *     have a check to make sure 2 (result) does NOT
+	 *     equal to 2 (operand).
+	 *     4 - 2 = 2
+	 *     sum - cost[j] = tmp
 	 */
 
 	int cases, flavors, n, sum;
@@ -38,10 +54,9 @@ int main() {
 			tmp = sum - cost[j];
 			if (hash.count(tmp) > 0) { //If such element exists
 
-				//If there's a repeat of that price
-				if (hash[tmp].size() > 1) { //Print [0] then [1]
-					fflush(stdout);
-					cout << hash[cost[j]][0] << " " << hash[tmp][1]; //where hash[cost[j]] == hash[tmp]
+				//If same, print [0] and [1]
+				if (cost[j] == tmp) {
+					cout << hash[cost[j]][0] << " " << hash[tmp][1] << endl; //where hash[cost[j]] == hash[tmp]
 				}
 				else { //Always print [0]
 
