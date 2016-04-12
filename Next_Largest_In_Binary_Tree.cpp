@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,7 +23,7 @@ struct Node {
 };
 
 int findNextLargest(Node*, int);
-void inOrderToVec(Node*, vector<int> &);
+void DFSToVec(Node*, vector<int> &);
 
 int main() {
 
@@ -40,14 +42,14 @@ int main() {
 	 *       1
 	 *
 	 * Approach 1:
-	 *     InOrder traverse the tree, then store every
-	 *     element into an array. Find the element you
-	 *     are given, then return the index of that
-	 *     element + 1 to get the index of the next
-	 *     largest integer.
+	 *     DFS traverse the tree and store each element
+	 *     into a vector. Then, sort the vector and find
+	 *     the index of the current node, then return
+	 *     the index of current node + 1 to return the
+	 *     next largest element in the tree.
 	 *
 	 * Complexity of Approach 1:
-	 *     O(n) for InOrder traversal
+	 *     O(nlogn) for sorting the vector
 	 *
 	 */
 
@@ -66,23 +68,25 @@ int main() {
 
 int findNextLargest(Node* head, int findThis) {
 
-	//Traverse via InOrder, and return data into vector
-	vector<int> inOrder;
-	inOrderToVec(head, inOrder);
+	//Traverse via DFS (using inOrder here), and return data into vector
+	vector<int> treeVec;
+	DFSToVec(head, treeVec);
+
+	//Sort vector containing tree nodes
+	sort(treeVec.begin(), treeVec.end());
 
 }
 
-void inOrderToVec(Node* itr, vector<int> & inOrder) {
+void DFSToVec(Node* itr, vector<int> & treeVec) {
 
 	if (itr->left != NULL) {
-		inOrderToVec(itr->left, inOrder);
+		DFSToVec(itr->left, treeVec);
 	}
 
-	inOrder.push_back(itr->data);
+	treeVec.push_back(itr->data);
 
 	if (itr->right != NULL) {
-		inOrderToVec(itr->right, inOrder);
+		DFSToVec(itr->right, treeVec);
 	}
-
 
 }
