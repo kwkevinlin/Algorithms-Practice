@@ -29,7 +29,7 @@ int main() {
 
 	/*
 	 * Given a node in a binary tree, find the next
-	 * largest number in that tree.
+	 * largest integer in the tree.
 	 *
 	 * Example Binary Tree:
 	 *
@@ -62,7 +62,7 @@ int main() {
 	head->right->left = new Node(8);
 	head->right->right = new Node(2);
 
-	cout << "Next largest number: " << findNextLargest(head, 6);
+	cout << "Next largest integer: " << findNextLargest(head, 6);
 
 }
 
@@ -75,6 +75,20 @@ int findNextLargest(Node* head, int findThis) {
 	//Sort vector containing tree nodes
 	sort(treeVec.begin(), treeVec.end());
 
+	for (int i = 0; i < treeVec.size(); i++) {
+		if (treeVec[i] == findThis) {
+			if (i + 1 < treeVec.size()) {
+				return treeVec[i+1];
+			} else {
+				cout << "Error: No larger integer!\n";
+				exit(1);
+			}
+
+		}
+	}
+
+	cout << "Input (" << findThis << ") not found!\n";
+	exit(1);
 }
 
 void DFSToVec(Node* itr, vector<int> & treeVec) {
