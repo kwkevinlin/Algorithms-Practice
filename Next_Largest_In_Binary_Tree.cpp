@@ -20,7 +20,8 @@ struct Node {
 	}
 };
 
-int findNextLargest(int);
+int findNextLargest(Node*, int);
+void inOrderToVec(Node*, vector<int> &);
 
 int main() {
 
@@ -38,6 +39,16 @@ int main() {
 	 *      \
 	 *       1
 	 *
+	 * Approach 1:
+	 *     InOrder traverse the tree, then store every
+	 *     element into an array. Find the element you
+	 *     are given, then return the index of that
+	 *     element + 1 to get the index of the next
+	 *     largest integer.
+	 *
+	 * Complexity of Approach 1:
+	 *     O(n) for InOrder traversal
+	 *
 	 */
 
 	Node* head = new Node(5);
@@ -49,11 +60,29 @@ int main() {
 	head->right->left = new Node(8);
 	head->right->right = new Node(2);
 
-	cout << "Next largest number: " << findNextLargest(6);
+	cout << "Next largest number: " << findNextLargest(head, 6);
 
 }
 
-int findNextLargest(int findThis) {
+int findNextLargest(Node* head, int findThis) {
+
+	//Traverse via InOrder, and return data into vector
+	vector<int> inOrder;
+	inOrderToVec(head, inOrder);
+
+}
+
+void inOrderToVec(Node* itr, vector<int> & inOrder) {
+
+	if (itr->left != NULL) {
+		inOrderToVec(itr->left, inOrder);
+	}
+
+	inOrder.push_back(itr->data);
+
+	if (itr->right != NULL) {
+		inOrderToVec(itr->right, inOrder);
+	}
 
 
 }
