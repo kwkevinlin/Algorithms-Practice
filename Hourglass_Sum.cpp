@@ -55,6 +55,7 @@ int main() {
 	};
 
 	int sum, max = (7 * -9); //Most min possible for each hourglass
+	int maxArr[7];
 
 	//numWidth, numHeight hard-coded to 6 currently
 	for (int i = 0; i < 6; i++) {
@@ -66,12 +67,25 @@ int main() {
 
 				if (sum > max) {
 					max = sum;
+
+					//Storing to maxArr
+					maxArr[0] = arr[i][j];
+					maxArr[1] = arr[i][j+1];
+					maxArr[2] = arr[i][j+2];
+					maxArr[3] = arr[i+1][j+1];
+					maxArr[4] = arr[i+2][j];
+					maxArr[5] = arr[i+2][j+1];
+					maxArr[6] = arr[i+2][j+2];
 				}
 			}
 		}
 	}
 
 	cout << "Max: " << max << endl;
+	cout << "Hourglass:\n";
+	cout << "   " << maxArr[0] << " " << maxArr[1] << " " << maxArr[2] << endl <<
+			"     " << maxArr[3] << endl <<
+			"   " << maxArr[4] << " " << maxArr[5] << " " << maxArr[6] << endl;
 
 }
 
