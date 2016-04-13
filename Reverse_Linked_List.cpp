@@ -19,6 +19,7 @@ struct Node
 };
 
 void reverseList(Node*, Node*, Node**);
+Node* reverseList(Node*);
 void printList(Node*);
 
 int main() {
@@ -54,6 +55,10 @@ void reverseList(Node* current, Node* prev, Node** head) {
 
 	//Tail recursion returns
 	current->next = prev;
+
+}
+
+Node* reverseList(Node* head) {
 
 }
 
