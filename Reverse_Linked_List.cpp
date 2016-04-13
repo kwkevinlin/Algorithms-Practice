@@ -44,8 +44,9 @@ int main() {
 	cout << "\n\nMethod 1 - Reversed:\n";
 	printList(reversedList);
 
-	cout << "\n\nMethod 2 - Reversed:\n";
-	printList(reverseList(head));
+	cout << "\n\nMethod 2 - Reversed Back:\n";
+	printList(reverseList(reversedList));
+
 }
 
 void reverseList(Node* current, Node* prev, Node** head) {
