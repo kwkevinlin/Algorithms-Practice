@@ -35,14 +35,17 @@ int main() {
 	head->next->next->next->next->next->next = new Node(7);
 	head->next->next->next->next->next->next->next = new Node(8);
 
-	cout << "Previous:\n";
+	cout << "Original:\n";
 	printList(head);
 
 	Node* reversedList;
 	reverseList(head, NULL, &reversedList); //Passing reversedList by reference to update head
 
-	cout << "\n\nReversed:\n";
+	cout << "\n\nMethod 1 - Reversed:\n";
 	printList(reversedList);
+
+	cout << "\n\nMethod 2 - Reversed:\n";
+	printList(reverseList(head));
 }
 
 void reverseList(Node* current, Node* prev, Node** head) {
@@ -60,6 +63,16 @@ void reverseList(Node* current, Node* prev, Node** head) {
 
 Node* reverseList(Node* head) {
 
+	//End of list base case
+	if (head->next == NULL || head == NULL) {
+		return head;
+	}
+
+	Node* newHead = reverseList(head->next); //Recursively return new head (since base case is last)
+	head->next->next = head; //Set next of next to become current node
+	head->next = NULL; //Invalidate original next
+
+	return newHead;
 }
 
 void printList(Node* itr) {
