@@ -21,6 +21,17 @@ bool detectCircularLL(Node*);
 
 int main() {
 
+	/*
+	 * Detect if a linked list is circular
+	 *
+	 * Input: 1->2->3->4->5
+	 *              ^     |
+	 *              |     V
+	 *              -------
+	 *
+	 * Output: Linked list IS circular!
+	 */
+
 	Node* head = new Node(1);
 	head->next = new Node(2);
 
@@ -32,14 +43,30 @@ int main() {
 	head->next->next->next->next->next = circularHead; //End node links back
 
 	if (detectCircularLL(head)) {
-		cout << "Linked list IS circular!\n";
+		cout << "List is circular!\n";
 	} else {
-		cout << "Linked list is NOT circular!\n";
+		cout << "List is not circular!\n";
 	}
 }
 
 bool detectCircularLL(Node* head) {
 
-	
+	Node* ptr1 = head, *ptr2 = head;
+
+	while (ptr1->next != NULL) {
+		ptr1 = ptr1->next;
+
+		if (ptr2->next != NULL && ptr2->next->next != NULL) {
+			ptr2 = ptr2->next->next;
+		} else {
+			return false; //There is an end
+		}
+
+		if (ptr1 == ptr2) {
+			return true; //Is circular
+		}
+	}
+
+	return false; //Else, 1 element list which is not circular
 
 }
