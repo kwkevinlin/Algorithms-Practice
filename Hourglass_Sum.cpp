@@ -21,14 +21,15 @@ int main() {
 	 *    0 0 2 4 4 0
 	 *    0 0 0 2 0 0
 	 *    0 0 1 2 4 0
-     *
-     * Note that there are many hourglasses in the array, for ex:
-     *
-     *    1 1 1     1 1 0     1 0 0     2 4 4
-  	 * 	    1         0         0         2
+	 *
+	 * Note that there are many hourglasses in the array, for ex:
+	 *
+	 *    1 1 1     1 1 0     1 0 0     2 4 4
+	 * 	    1         0         0         2
 	 *	  1 1 1     1 1 0     1 0 0     1 2 4
 	 *
 	 * For which the first three are formed in the first row.
+	 * Integers in the array can range from -9 to 9.
 	 *
 	 * Output:
 	 *     Print the largest sum among all the hourglasses in the
@@ -44,6 +45,33 @@ int main() {
 	 *
 	 */
 
+	int arr[6][6] = {
+			{1, 1, 1, 0, 0, 0},
+			{0, 1, 0, 0, 0, 0},
+			{1, 1, 1, 0, 0, 0},
+			{0, 0, 2, 4, 4, 0},
+			{0, 0, 0, 2, 0, 0},
+			{0, 0, 1, 2, 4, 0}
+	};
+
+	int sum, max = (7 * -9); //Most min possible for each hourglass
+
+	//numWidth, numHeight hard-coded to 6 currently
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) {
+
+			sum = 0;
+			if (j + 2 < 6 && i + 2 < 6) { //Not out of bounds
+				sum = arr[i][j] + arr[i][j+1] + arr[i][j+2] + arr[i+1][j+1] + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
+
+				if (sum > max) {
+					max = sum;
+				}
+			}
+		}
+	}
+
+	cout << "Max: " << max << endl;
 
 }
 
