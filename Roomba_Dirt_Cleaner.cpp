@@ -19,6 +19,10 @@ int main() {
 	 * 	 2 3
 	 * 	 NNESEESWNWW	//Moving instructions
 	 *
+	 * To compile:
+	 *
+	 * To execute:
+	 *   ./roombaCleaner
 	 */
 
 	//Variable declarations
