@@ -48,6 +48,7 @@ int main() {
 	 * Note: Algorithm does not currently check if roomba is out of bounds.
 	 *
 	 */
+	int cleaned = 0;
 	for (int i = 0; i < instructions.length(); i++) {
 
 		if (instructions[i] == 'N') {
@@ -64,12 +65,15 @@ int main() {
 		pos.push_back(roombaX);
 		pos.push_back(roombaY);
 		if (map.count(pos) > 0) {
-			cout << "Dirt! " << pos[0] << ", " << pos[1] << endl;
-			map.erase(pos);
+			//cout << "Dirt! " << pos[0] << ", " << pos[1] << endl;
+			map.erase(pos); //Erase from known dirt coordinates
+			cleaned++;
 		}
 	}
 
-	cout << "Final position: " << roombaX << ", " << roombaY << endl;
+	//Results printout
+	cout << roombaX << " " << roombaY << endl; //Final position
+	cout << cleaned << endl;
 
 }
 
