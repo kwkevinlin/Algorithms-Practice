@@ -1,5 +1,7 @@
 #include <iostream>
+#include <array>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -24,13 +26,16 @@ int main() {
 
 	cout << roomX << ", " << roomY << ", " << roombaX << ", " << roombaY << endl;
 
-	int dirt[3][2] = {
-			{1, 0},
-			{2, 2},
-			{2, 3}
-	};
+	//std::array for map hash
+	vector<vector<int>> dirt = {{
+			{{1, 0}},
+			{{2, 2}},
+			{{2, 3}}
+	}};
 
+	map<vector<int>, int> map;
 	for (int i = 0; i < 3; i ++) {
+		map[dirt[i]]++; //Add to map
 		for (int j = 0; j < 2; j++) {
 			cout << dirt[i][j] << " ";
 		} cout << endl;
@@ -44,7 +49,6 @@ int main() {
 	 *
 	 */
 	for (int i = 0; i < instructions.length(); i++) {
-		cout << instructions[i] << ": ";
 
 		if (instructions[i] == 'N') {
 			roombaY++;
@@ -55,7 +59,14 @@ int main() {
 		} else if (instructions[i] == 'W') {
 			roombaX--;
 		}
-		cout << roombaX << ", " << roombaY << endl;
+
+		vector<int> pos;
+		pos.push_back(roombaX);
+		pos.push_back(roombaY);
+		if (map.count(pos) > 0) {
+			cout << "Dirt! " << pos[0] << ", " << pos[1] << endl;
+			map.erase(pos);
+		}
 	}
 
 	cout << "Final position: " << roombaX << ", " << roombaY << endl;
