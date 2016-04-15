@@ -5,6 +5,9 @@
 
 using namespace std;
 
+void parseInputs(int&, int&, int&, int&, string&, map<vector<int>, int>&);
+void cleanRoom(string, int&, int&, int&, map<vector<int>, int>&);
+
 int main() {
 
 	/*
@@ -14,24 +17,40 @@ int main() {
 	 *   1 0			//Dirt patch, one per line
 	 *   2 2
 	 * 	 2 3
-	 * 	 NNESEESWNWW		//Driving directions
+	 * 	 NNESEESWNWW	//Moving instructions
 	 *
 	 */
 
-	/*
-	 * Input variables
-	 */
-	int roomX = 5, roomY = 5, roombaX = 1, roombaY = 2;
+	//Variable declarations
+	int roomX, roomY, roombaX, roombaY, patchesCleaned = 0;;
 	string instructions;
 	map<vector<int>, int> dirtMap; //Dirt coordinates stored in map for fast lookup
 
+
+	//Parse inputs
+	parseInputs(roomX, roomY, roombaX, roombaY, instructions, dirtMap);
+
+
+	//Run instructions and clean the room
+	cleanRoom(instructions, roombaX, roombaY, patchesCleaned, dirtMap);
+
+
+	//Printout results
+	cout << roombaX << " " << roombaY << endl; //Roomba final position
+	cout << patchesCleaned << endl; //Dirt patches cleaned
+
+}
+
+void parseInputs(int& roomX, int& roomY, int& roombaX, int& roombaY, string& instructions, map<vector<int>, int>& dirtMap) {
+
+	string line;
+	vector<int> tmp;
+	int breakOut = 0;
+
+	//Reading room dimension, Roomba initial position
 	cin >> roomX >> roomY >> roombaX >> roombaY;
 
-	vector<int> tmp;
-
-
-	int breakOut = 0;
-	string line;
+	//Determine whether input is integer (dirt coordinates), or string (instructions), then store each accordingly
 	while (getline(cin, line)) {
 		istringstream is(line);
 		string word;
@@ -53,11 +72,10 @@ int main() {
 			break;
 		}
 	}
+}
 
+void cleanRoom(string instructions, int& roombaX, int& roombaY, int& patchesCleaned, map<vector<int>, int>& dirtMap) {
 
-	/* Algorithm
-	 */
-	int cleaned = 0;
 	for (int i = 0; i < instructions.length(); i++) {
 
 		if (instructions[i] == 'N') {
@@ -75,15 +93,7 @@ int main() {
 		pos.push_back(roombaY);
 		if (dirtMap.count(pos) > 0) {
 			dirtMap.erase(pos); //Erase from known dirt coordinates
-			cleaned++;
+			patchesCleaned++;
 		}
 	}
-
-	cout << endl;
-
-	//Results printout
-	cout << roombaX << " " << roombaY << endl; //Final position
-	cout << cleaned << endl;
-
 }
-
