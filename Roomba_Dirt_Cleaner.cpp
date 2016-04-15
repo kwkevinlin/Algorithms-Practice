@@ -20,6 +20,7 @@ int main() {
 	 * 	 NNESEESWNWW	//Moving instructions
 	 *
 	 * To compile:
+	 *   g++ -o roombaCleaner roombaCleaner.cpp -std=c++0x
 	 *
 	 * To execute:
 	 *   ./roombaCleaner
