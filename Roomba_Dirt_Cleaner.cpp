@@ -1,7 +1,7 @@
 #include <iostream>
-#include <array>
 #include <vector>
 #include <map>
+#include <sstream>
 
 using namespace std;
 
@@ -19,34 +19,43 @@ int main() {
 	 */
 
 	/*
-	 * Hard-code inputs to start
+	 * Input variables
 	 */
 	int roomX = 5, roomY = 5, roombaX = 1, roombaY = 2;
-	//cin >> roomX >> roomY >> roombaX >> roombaY;
+	string instructions;
+	map<vector<int>, int> dirtMap; //Dirt coordinates stored in map for fast lookup
 
-	cout << roomX << ", " << roomY << ", " << roombaX << ", " << roombaY << endl;
+	cin >> roomX >> roomY >> roombaX >> roombaY;
 
-	//std::array for map hash
-	vector<vector<int>> dirt = {{
-			{{1, 0}},
-			{{2, 2}},
-			{{2, 3}}
-	}};
+	vector<int> tmp;
 
-	map<vector<int>, int> map;
-	for (int i = 0; i < 3; i ++) {
-		map[dirt[i]]++; //Add to map
-		for (int j = 0; j < 2; j++) {
-			cout << dirt[i][j] << " ";
-		} cout << endl;
+
+	int breakOut = 0;
+	string line;
+	while (getline(cin, line)) {
+		istringstream is(line);
+		string word;
+		while (is >> word) {
+			int val = atoi(word.c_str());
+			if (val || word == "0") { //Input is integer
+				tmp.push_back(val);
+				if (tmp.size() == 2) { //Store pair into map
+					dirtMap[tmp]++;
+					tmp.clear();
+				}
+			} else { //Input is instruction
+				instructions = word;
+				breakOut = 1;
+				break;
+			}
+		}
+		if (breakOut == 1) {
+			break;
+		}
 	}
 
-	string instructions = "NNESEESWNWW";
 
 	/* Algorithm
-	 *
-	 * Note: Algorithm does not currently check if roomba is out of bounds.
-	 *
 	 */
 	int cleaned = 0;
 	for (int i = 0; i < instructions.length(); i++) {
@@ -64,12 +73,13 @@ int main() {
 		vector<int> pos;
 		pos.push_back(roombaX);
 		pos.push_back(roombaY);
-		if (map.count(pos) > 0) {
-			//cout << "Dirt! " << pos[0] << ", " << pos[1] << endl;
-			map.erase(pos); //Erase from known dirt coordinates
+		if (dirtMap.count(pos) > 0) {
+			dirtMap.erase(pos); //Erase from known dirt coordinates
 			cleaned++;
 		}
 	}
+
+	cout << endl;
 
 	//Results printout
 	cout << roombaX << " " << roombaY << endl; //Final position
