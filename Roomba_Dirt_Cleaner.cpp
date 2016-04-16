@@ -6,7 +6,7 @@
 using namespace std;
 
 void parseInputs(int&, int&, int&, int&, string&, map<vector<int>, int>&);
-void cleanRoom(string, int&, int&, int&, map<vector<int>, int>&);
+void cleanRoom(string, int&, int&, int&, int, int, map<vector<int>, int>&);
 
 int main() {
 
@@ -35,9 +35,8 @@ int main() {
 	//Parse inputs
 	parseInputs(roomX, roomY, roombaX, roombaY, instructions, dirtMap);
 
-
 	//Run instructions and clean the room
-	cleanRoom(instructions, roombaX, roombaY, patchesCleaned, dirtMap);
+	cleanRoom(instructions, roombaX, roombaY, patchesCleaned, roomX, roomY, dirtMap);
 
 
 	//Printout results
@@ -79,17 +78,21 @@ void parseInputs(int& roomX, int& roomY, int& roombaX, int& roombaY, string& ins
 	}
 }
 
-void cleanRoom(string instructions, int& roombaX, int& roombaY, int& patchesCleaned, map<vector<int>, int>& dirtMap) {
+void cleanRoom(string instructions, int& roombaX, int& roombaY, int& patchesCleaned, int roomX, int roomY, map<vector<int>, int>& dirtMap) {
 
 	for (int i = 0; i < instructions.length(); i++) {
 
-		if (instructions[i] == 'N') {
+
+		/*
+		 * If moving out of bounds, then slide against wall (result: no net movements)
+		 */
+		if (instructions[i] == 'N' && roombaY + 1 <= roomY) {
 			roombaY++;
-		} else if (instructions[i] == 'E') {
+		} else if (instructions[i] == 'E' && roombaX + 1 <= roomX) {
 			roombaX++;
-		} else if (instructions[i] == 'S') {
+		} else if (instructions[i] == 'S' && roombaY - 1 >= 0) {
 			roombaY--;
-		} else if (instructions[i] == 'W') {
+		} else if (instructions[i] == 'W' && roombaX - 1 >= 0) {
 			roombaX--;
 		}
 
