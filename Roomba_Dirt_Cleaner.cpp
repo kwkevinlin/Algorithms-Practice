@@ -16,8 +16,8 @@ int main() {
 	 *   1 2			//Roomba initial position
 	 *   1 0			//Dirt patch, one per line
 	 *   2 2
-	 *   2 3
-	 *   NNESEESWNWW		//Moving instructions
+	 * 	 2 3
+	 * 	 NNESEESWNWW	//Moving instructions
 	 *
 	 * To compile:
 	 *   g++ -o roombaCleaner roombaCleaner.cpp -std=c++0x
@@ -31,11 +31,13 @@ int main() {
 	string instructions;
 	map<vector<int>, int> dirtMap; //Dirt coordinates stored in map for fast lookup
 
+
 	//Parse inputs
 	parseInputs(roomX, roomY, roombaX, roombaY, instructions, dirtMap);
 
 	//Run instructions and clean the room
 	cleanRoom(instructions, roombaX, roombaY, patchesCleaned, roomX, roomY, dirtMap);
+
 
 	//Printout results
 	cout << roombaX << " " << roombaY << endl; //Roomba final position
