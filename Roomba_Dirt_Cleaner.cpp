@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <sstream>
 
 using namespace std;
 
@@ -55,27 +54,22 @@ void parseInputs(int& roomX, int& roomY, int& roombaX, int& roombaY, string& ins
 	cin >> roomX >> roomY >> roombaX >> roombaY;
 
 	//Determine whether input is integer (dirt coordinates), or string (instructions), then store each accordingly
-	while (getline(cin, line)) {
-		istringstream is(line);
-		string word;
-		while (is >> word) {
-			int val = atoi(word.c_str());
-			if (val || word == "0") { //Input is integer
-				tmp.push_back(val);
-				if (tmp.size() == 2) { //Store pair into map
-					dirtMap[tmp]++;
-					tmp.clear();
-				}
-			} else { //Input is instruction
-				instructions = word;
-				breakOut = 1;
-				break;
+	string word;
+	while (cin >> word) {
+		int val = atoi(word.c_str()); //atoi returns 0 if word.c_str() is not a valid number
+		if (val || word == "0") { //Input is integer
+			tmp.push_back(val);
+			if (tmp.size() == 2) { //Store pair into map
+				dirtMap[tmp]++;
+				tmp.clear();
 			}
-		}
-		if (breakOut == 1) {
+		} else { //Input is instruction
+			instructions = word;
+			breakOut = 1;
 			break;
 		}
 	}
+
 }
 
 void cleanRoom(string instructions, int& roombaX, int& roombaY, int& patchesCleaned, int roomX, int roomY, map<vector<int>, int>& dirtMap) {
