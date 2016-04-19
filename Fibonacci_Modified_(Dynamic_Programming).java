@@ -7,6 +7,8 @@ import java.math.BigInteger;
     Given the nth and (n+1)th terms, the (n+2)th can be computed by the following relation: 
     T(n+2) = (T(n+1))^2 + T(n)
 
+    Utilizing Java for BigInteger support
+
     Adapted from HackerRank:
         Fibonacci Modified
         https://www.hackerrank.com/challenges/fibonacci-modified
