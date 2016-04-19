@@ -28,7 +28,7 @@ struct Node {
 
 int main() {
 
-	/* Check if one Tree is a subtree of another
+	/* Check if one BST is a subtree of another BST
 
 	          Tree 1         Subtree of 1
 	           100               50
