@@ -12,12 +12,18 @@ int main() {
 
     /*
         You are given a binary tree in the input form of (parent, child). Detect the following
-        errors, and if found any, output them in priority ordering (smallest to largest).
+        errors, and if any are found, output them in priority order (error number smallest to 
+        largest).
         If no errors are found, output the tree in lexicographically smallest S-Expression,
         where the root is printed first, then subsequent child printed in alphabetical order.
 
+        Note that inputs are of the form:
+            (B,D) (D,E) (A,B) (C,F) (E,G) (A,C)
+
+        Notice the number of spaces, and placement of symbols.
+
         Errors:
-        E1 - Invalid input formart
+        E1 - Invalid input formart (missing symbols, more than one blank space as pair separators)
         E2 - Duplicate (Parent, Child) pairs
         E3 - Invalid binary tree (parent has 2 > children)
         E4 - Input contains a forest (multiple root nodes)
@@ -25,6 +31,36 @@ int main() {
 
         If no errors are detected, output the tree in lexicographically smallest S-Expression.
             S-Exp(node) = ( node->value (S-Exp(node->smallest_child))(S-Exp(node->biggest_child)))
+
+        Input #1
+            (B,D) (D,E) (A,B) (B,D) (D,C)
+        Output:
+            (A(B(D(E(G))))(C(F)))
+
+        Input #2
+            (A,B)    (A,C) (B, E) (B,F)
+        Output:
+            E1
+
+        Input #3
+            (A,B) (B,C) (A,B) (A,C)
+        Output:
+            E2
+
+        Input #4
+            (A,B) (A,C) (A,D) (B,E)
+        Output:
+            E3
+
+        Input #5
+            (A,C) (A,C) (B,D) (E,F) (F,G) (F,H)
+        Output:
+            E4
+
+        Input #6
+            (A,B) (A,C) (B,D) (D,C)
+        Output:
+            E5
     */
 
     string input;
