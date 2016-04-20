@@ -1,5 +1,3 @@
-//Question 3
-
 #include <iostream>
 #include <map>
 #include <vector>
@@ -11,6 +9,24 @@ void lexiSExpressionPrint(map<char, vector<char>>, char);
 
 int main() {
     
+
+    /*
+        You are given a binary tree in the input form of (parent, child). Detect the following
+        errors, and if found any, output them in priority ordering (smallest to largest).
+        If no errors are found, output the tree in lexicographically smallest S-Expression,
+        where the root is printed first, then subsequent child printed in alphabetical order.
+
+        Errors:
+        E1 - Invalid input formart
+        E2 - Duplicate (Parent, Child) pairs
+        E3 - Invalid binary tree (parent has 2 > children)
+        E4 - Input contains a forest (multiple root nodes)
+        E5 - Input contain cycles within the tree (ex: child's child = parent)
+
+        If no errors are detected, output the tree in lexicographically smallest S-Expression.
+            S-Exp(node) = ( node->value (S-Exp(node->smallest_child))(S-Exp(node->biggest_child)))
+    */
+
     string input;
     getline(cin, input);
     
