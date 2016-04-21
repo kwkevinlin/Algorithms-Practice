@@ -47,6 +47,7 @@ int main() {
 	string prev;
 	stringstream ss;
 
+	//Read in inputs a little messy. Fix soon.
 	for (int i = 0; i < input.length(); i++) {
 		if (input[i] == '(' || input[i] == ',') {
 
@@ -79,11 +80,21 @@ int main() {
 		}
 	}
 
+	cout << "Rect1:\n";
 	for (auto kv : rect1) {
 		cout << kv.first << ", " << kv.second << endl;
 	}
+	cout << "Rect2:\n";
+	for (auto kv : rect2) {
+		cout << kv.first << ", " << kv.second << endl;
+	}
 
-
+	/*
+	 * Next:
+	 *    Find top/down, left/right boundaries of both rectangles
+	 *    Then easy comparisons to check if they intersect
+	 *
+	 */
 
 
 	//	// Storing in unordered set to avoid dealing with duplicates
