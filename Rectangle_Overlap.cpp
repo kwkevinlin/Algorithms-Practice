@@ -80,21 +80,42 @@ int main() {
 		}
 	}
 
-	cout << "Rect1:\n";
-	for (auto kv : rect1) {
-		cout << kv.first << ", " << kv.second << endl;
-	}
-	cout << "Rect2:\n";
-	for (auto kv : rect2) {
-		cout << kv.first << ", " << kv.second << endl;
-	}
-
 	/*
 	 * Next:
 	 *    Find top/down, left/right boundaries of both rectangles
 	 *    Then easy comparisons to check if they intersect
 	 *
 	 */
+
+	int r1X[2] = {-1000}, r1Y[2] = {-1000},
+	r2X[2],
+	r2Y[2];
+	cout << "Rect1:\n";
+	for (auto kv : rect1) {
+		if (kv.first > r1X[0]) {
+			if (kv.first >= r1X[1]) {
+				r1X[0] = r1X[1];
+				r1X[1] = kv.first;
+			} else {
+				r1X[0] = kv.first;
+			}
+		}
+		if (kv.second > r1Y[0]) {
+			if (kv.second > r1Y[1]) {
+				r1Y[0] = r1Y[1];
+				r1Y[1] = kv.second;
+			} else {
+				r1Y[0] = kv.second;
+			}
+		}
+		cout << kv.first << ", " << kv.second << endl;
+	}
+	cout << r1X[0] << " < " << r1X[1] << endl;
+
+//	cout << "Rect2:\n";
+//	for (auto kv : rect2) {
+//		cout << kv.first << ", " << kv.second << endl;
+//	}
 
 
 	//	// Storing in unordered set to avoid dealing with duplicates
