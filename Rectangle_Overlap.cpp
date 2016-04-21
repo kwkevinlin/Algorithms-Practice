@@ -1,10 +1,7 @@
 #include <iostream>
-#include <set>
-#include <array>
+#include <sstream>
 
 using namespace std;
-
-void setInsert(set<int>&, char, char);
 
 int main() {
 
@@ -45,8 +42,46 @@ int main() {
 	 * Starting new algorithm
 	 */
 
+	pair<int, int> rect1[4], rect2[4];
+	int index = 0, count = 0, prevI;
+	string prev;
+	stringstream ss;
 
+	for (int i = 0; i < input.length(); i++) {
+		if (input[i] == '(' || input[i] == ',') {
 
+			prevI = i;
+			for (i = i + 1; i < input.length(); i++) { //Look ahead until stopping symbol
+				if (input[i] == ',' || input[i] == ')' || input[i] == '(') {
+					i--;
+					break;
+				} else {
+					ss << input[i];
+				}
+			}
+
+			if (prevI == i) { //Means encountered the comma in between ),(
+				continue;
+			}
+
+			count++;
+			if (count % 2 == 0) { //Insert into rect arrays
+				if (index <= 4) {
+					rect1[index] = make_pair(stoi(prev), stoi(ss.str()));
+				} else {
+					rect2[index % 4] = make_pair(stoi(prev), stoi(ss.str()));
+				}
+				index++;
+			} else {
+				prev = ss.str();
+			}
+			ss.str("");
+		}
+	}
+
+	for (auto kv : rect1) {
+		cout << kv.first << ", " << kv.second << endl;
+	}
 
 
 
