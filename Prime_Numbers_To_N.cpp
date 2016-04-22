@@ -8,13 +8,22 @@ int main() {
 
 
 	/*
-	 * Find all prime numbers to N
+	 * Write a function to find all prime numbers until N
 	 *
+	 * Primitive solution of O(N^2) time
 	 */
+
+	int findPrimeUntil = 50;
+
+	findPrime(findPrimeUntil);
+
+}
+
+void findPrime(int N) {
 
 	bool isPrime = true;
 	int i;
-	for (i = 3; i < 30; i = i + 2) {
+	for (i = 3; i < N; i = i + 2) {
 		for (int j = 3; j < i; j++) {
 
 			if (i % j == 0) {
@@ -29,11 +38,4 @@ int main() {
 			isPrime = true;
 		}
 	}
-
-}
-
-void findPrime(int) {
-
-
-
 }
