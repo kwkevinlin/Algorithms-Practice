@@ -30,6 +30,8 @@ int main() {
 	 * 	   K = 2
 	 * 	   Output: 4
 	 *
+	 * Two approaches; both are linear time.
+	 *
 	 */
 
 	//Quick list setup
@@ -41,9 +43,20 @@ int main() {
 
 	int kth = 6;
 
-	//If given size of list
+	/*
+	 * Approach 1: (worst)
+	 * If size of list is known. If not, traverse through the list in O(n) time to retrieve size.
+	 */
 	int listSize = 5;
 	cout << "Kth to last: " << kthToLast(head, (listSize - kth)) << endl;
+
+	/*
+	 * Approach 2: (best)
+	 * Create two pointers, and point the second pointer to K elements into the node. Then, increment
+	 * both pointers by 1 element until the second pointer reaches the end of list. First pointer will
+	 * be at the position of the Kth to last element.
+	 */
+
 
 }
 
