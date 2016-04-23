@@ -14,7 +14,8 @@ int main() {
 	 * Solution:
 	 *     Doors opened will be 1^2, 2^2, 3^2, ... N   (square)
 	 *                          1,   4,   9,   ... 10^10
-	 *     Brute-force approach
+	 *
+	 *     Natively a math/pattern problem, but possible to be brute-forced with this algorithm
 	 */
 
 	int doors[100];
