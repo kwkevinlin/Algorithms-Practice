@@ -3,7 +3,10 @@
 
 using namespace std;
 
-bool verifyMaze(int[][], int, int);
+const int width = 3;
+const int height = 3;
+bool verifyMaze(int[][width]);
+
 int main() {
 
 	/*
@@ -15,19 +18,26 @@ int main() {
 	 *		0 0 1
 	 *
 	 *	Approach:
-	 *	    Whenever I see a 1, check below if there is a 1. If not, check if right is a 1.
-	 *	    If both not, check if at end of path. If yes, return true. Else, false.
+	 *	    Whenever there is a 1, check below if there is a 1 or not. If not,
+	 *	    check if right is a 1. If both not, check if at end of path. If yes,
+	 *	    return true. Else, return false.
 	 */
 
-	int width = 3;
-	int height = 3;
 	int maze[height][width] = {
 			{0, 1, 0},
 			{0, 1, 1},
 			{0, 0, 1}
 	};
 
-	bool canContinue = true;
+	if (verifyMaze(maze)) {
+		cout << "Success! Maze can be traversed.\n";
+	} else {
+		cout << "Maze cannot be traversed!\n";
+	}
+
+}
+
+bool verifyMaze(int maze[][width]) {
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
@@ -38,22 +48,18 @@ int main() {
 				if (i + 1 < height && maze[i+1][j] == 1) {
 					//Below is 1
 				} else {
-					//If right is not 1, then below has to be 1, or else cant continue
+					//If right is not 1, then below has to be 1, or else maze can't continue
 					if (j + 1 < width && maze[i][j+1] == 1) {
 						//Right is 1
 					} else if (i == height - 1) {
-						cout << "End of maze\n";
+						//End of maze
+						return true;
 					} else {
-						canContinue = false;
+						//Cannot find 1 to the right or bottom of current 1
+						return false;
 					}
 				}
 			}
 		}
-		if (canContinue == false) {
-			cout << "Cannot continue\n";
-			break;
-		}
 	}
 }
-
-
