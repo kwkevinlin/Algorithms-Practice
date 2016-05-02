@@ -2,6 +2,8 @@
 
 using namespace std;
 
+int solvePuzzle(int);
+
 int main() {
 
 	/*
@@ -21,5 +23,22 @@ int main() {
 	 *
 	 */
 
+	cout << "Holes: " << solvePuzzle(1264) << endl;
 
+}
+
+int solvePuzzle(int num) {
+
+	string myNum = to_string(num);
+
+	int holes = 0;
+	for (int i = 0; i < myNum.length(); i++) {
+		if (myNum[i] == '0' || myNum[i] == '4' || myNum[i] == '6' || myNum[i] == '9') {
+			holes = holes + 1;
+		} else if (myNum[i] == '8') {
+			holes = holes + 2;
+		}
+	}
+
+	return holes;
 }
