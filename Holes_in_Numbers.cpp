@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -23,7 +24,10 @@ int main() {
 	 *
 	 */
 
-	cout << "Holes: " << solvePuzzle(1264) << endl;
+	srand(time(NULL));
+	int num = rand() % 10000;
+	cout << "Input: " << num << endl;
+	cout << "Holes: " << solvePuzzle(num) << endl;
 
 }
 
