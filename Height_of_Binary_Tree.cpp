@@ -20,6 +20,8 @@ struct Node {
 	}
 };
 
+int getHeight(Node*);
+
 int main() {
 
 	/*
@@ -39,5 +41,30 @@ int main() {
 	head->left->left = new Node(2);
 	head->left->right = new Node(7);
 
+	cout << "Height: " << getHeight(head) << endl;
+}
 
+int getHeight(Node* head) {
+
+	//Leaf node base case
+	if (head->left == NULL && head->right == NULL) {
+		return 1;
+	}
+
+	//Get height of left and right subtree
+	int left = -1, right = -1;
+	if (head->left != NULL) {
+		left = 1 + getHeight(head->left);
+	}
+
+	if (head->right != NULL) {
+		right = 1 + getHeight(head->right);
+	}
+
+	//Return longest height only
+	if (left > right) {
+		return left;
+	} else {
+		return right;
+	}
 }
