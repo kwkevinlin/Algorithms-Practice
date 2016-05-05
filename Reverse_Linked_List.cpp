@@ -26,7 +26,7 @@ int main() {
 
 	Node *head = new Node(1);
 
-	/* Populate list without linked list class */
+	/* Fast populate linked list */
 	head->next = new Node(2);
 	head->next->next = new Node(3);
 	head->next->next->next = new Node(4);
@@ -39,12 +39,12 @@ int main() {
 	printList(head);
 
 	Node* reversedList;
-	reverseList(head, NULL, &reversedList); //Passing reversedList by reference to update head
+	reverseList(head, NULL, &reversedList);
 
-	cout << "\n\nMethod 1 - Reversed:\n";
+	cout << "\n\nMethod 1 - Reversed:\n"; //Primitive
 	printList(reversedList);
 
-	cout << "\n\nMethod 2 - Reversed Back:\n";
+	cout << "\n\nMethod 2 - Reverse Back:\n"; //Better
 	printList(reverseList(reversedList));
 
 }
@@ -62,25 +62,25 @@ void reverseList(Node* current, Node* prev, Node** head) {
 
 }
 
-Node* reverseList(Node* head) {
+Node* reverseList(Node* itr) {
 
-	//End of list base case
-	if (head->next == NULL || head == NULL) {
-		return head;
+	Node* newHead, *nextNode; //Storage for after recursion hits base case
+	if (itr->next != NULL) {
+		nextNode = itr->next;
+		newHead = reverseList(itr->next);
+	} else {
+		return itr;
 	}
 
-	Node* newHead = reverseList(head->next); //Recursively return new head (since base case is last)
-	head->next->next = head; //Set next of next to become current node
-	head->next = NULL; //Invalidate original next
-
+	nextNode->next = itr; //Node's original next = current
+	itr->next = NULL; //Set new tail->next as null
 	return newHead;
 }
 
 void printList(Node* itr) {
 
-	cout << itr->data << " ";
-
-	if (itr->next != NULL) {
+	if (itr != NULL) {
+		cout << itr->data << " ";
 		printList(itr->next);
 	}
 }
