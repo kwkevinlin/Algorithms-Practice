@@ -25,9 +25,9 @@ int main() {
 	map<int, int> histogram = createHistogram(str);
 
 	//Histogram printout
-	cout << "\nHistogram of each number:\n";
+	cout << "\nHistogram (Numbers):\n";
 	for (auto kv : histogram) {
-		cout << kv.first - '0' << ": " << kv.second << endl;
+		cout << kv.first << ": " << kv.second << endl;
 	}
 }
 
