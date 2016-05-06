@@ -5,23 +5,37 @@ using namespace std;
 
 class Stack {
 private:
-	int index;
-	int size;
-	int* arr;
+	int index;		//Arr[] index
+	int size;		//Number of elements in the stack
+	int capacity;	//Max capacity of stack
+	int* arr;		//Array to store data
 
 public:
-	Stack(int size) {
-		arr = new int[size];
+	Stack(int val) {
+		arr = new int[val];
 		index = -1;
 		size = 0;
+		capacity = val;
+	}
+
+	~Stack() {
+		delete[] arr;
 	}
 
 	void push(int val) {
+		if (index + 1 == capacity) {
+			cout << "Stack is full, cannot push more elements.\n";
+			return;
+		}
 		arr[index] = val;
 		index++;
 	}
 
 	void pop() {
+		if (index == 0) {
+			cout << "Stack is empty, cannot pop top.\n";
+			return;
+		}
 		index--;
 	}
 
