@@ -1,5 +1,4 @@
 #include <iostream>
-#include <sstream>
 #include <stdlib.h>
 #include <time.h>
 
@@ -12,14 +11,17 @@ int main() {
 	 */
 
 	//Generate random string
-	stringstream ss("find the number of occurrences of each number in a string");
+	string str = "Find the number of occurrences of each number in a string";
 	srand(time(NULL));
 
-	for (int i = 0; i < 10; i++) {
-		ss << rand() % 10;
+	int add;
+	for (int i = 0; i < str.length(); i++) {
+		add = rand() % 100;
+		if (add % 4 == 0) { //Randomly insert numbers based on a probability algorithm
+			str.insert(i, to_string((add % 10)));
+		}
 	}
-
-	cout << ss.str();
+	cout << "String: \n" << str << endl;
 
 }
 
