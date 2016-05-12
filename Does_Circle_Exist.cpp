@@ -1,5 +1,10 @@
 /*
- * Complete the function below.
+ * Given a string as command, determine if the command results in a path that leads back to the origin.
+ *
+ * Example:
+ *     NNEESSSWWN
+ *     Yes. Each character (N, E, S, or W) represents a unit of movement in that directions. After one 
+ *     block N -> N -> E -> E -> S -> S -> S -> W -> W -> N, the user is back to the place of origin.
  */
 string doesCircleExist(string commands) {
     
