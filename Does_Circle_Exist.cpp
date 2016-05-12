@@ -8,11 +8,12 @@
  *        R = Face right, but don't move
  *
  * Example:
- *    (input example here -- note to self)
- *     
+ *    GLGLGLG
  *     
  * Explanation:
- *    
+ *    Starting facing north, go north one square. Then, turn left (facing west now) and go forward one
+ *    square. Turn left again, then go forward one square. Turn left again, then go forward one square.
+ *    The commands lead back to the origin point, and thus a circle exists. 
  *
  */
 string doesCircleExist(string commands) {
