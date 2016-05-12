@@ -3,7 +3,10 @@
  *
  * Example:
  *     NNEESSSWWN
- *     Yes. Each character (N, E, S, or W) represents a unit of movement in that directions. After one 
+ *     Yes. 
+ *     
+ * Explanation:
+ *     Each character (N, E, S, or W) represents a unit of movement in that directions. After one 
  *     block N -> N -> E -> E -> S -> S -> S -> W -> W -> N, the user is back to the place of origin.
  */
 string doesCircleExist(string commands) {
