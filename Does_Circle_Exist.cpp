@@ -1,13 +1,19 @@
 /*
  * Given a string as command, determine if the command results in a path that leads back to the origin.
  *
+ * Possible inputs:
+ *    G, L, R
+ *        G = Go (forward) one unit
+ *        L = Face left, but don't move
+ *        R = Face right, but don't move
+ *
  * Example:
- *     NNEESSSWWN
- *     Yes. 
+ *    (input example here -- note to self)
+ *     
  *     
  * Explanation:
- *     Each character (N, E, S, or W) represents a unit of movement in that directions. After one 
- *     block N -> N -> E -> E -> S -> S -> S -> W -> W -> N, the user is back to the place of origin.
+ *    
+ *
  */
 string doesCircleExist(string commands) {
     
