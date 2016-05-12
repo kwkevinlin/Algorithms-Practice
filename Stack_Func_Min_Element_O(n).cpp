@@ -72,4 +72,26 @@ int main() {
 	 *
 	 */
 
+	myStack myStack;
+	srand(time(NULL));
+
+	cout << "Stack:\n";
+	for (int i = 0; i < 7; i++) {
+		myStack.push(rand() % 5 + 1); //Allow some duplicates
+		cout << "|" << myStack.top() << "|\n";
+	}
+
+	cout << "Stack min: " << myStack.getMin() << endl;
+
+	cout << "\nMinStack:\n";
+	myStack.printMinStk();
+
+	cout << "\nMin test:\n";
+	for (int i = 0; i < 6; i++) {
+		cout << "Pop: " << myStack.top() << endl;
+		myStack.pop();
+		cout << "Stack min: " << myStack.getMin() << endl;
+	}
+	cout << "\nRemaining element: " << myStack.top();
+	
 }
