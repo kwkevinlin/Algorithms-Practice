@@ -3,6 +3,55 @@
 #include <cstdlib>
 #include <time.h>
 
+using namespace std;
+
+class myStack {
+public:
+	myStack() {
+		dataStkIndex = 0;
+		minStkIndex = 0;
+		min = numeric_limits<int>::max();
+	}
+
+	void push(int n) {
+		dataStk[dataStkIndex] = n;
+		dataStkIndex++;
+		if (n <= min) {
+			min = n;
+			minStk[minStkIndex] = n;
+			minStkIndex++;
+		}
+	}
+	void pop() {
+		if (dataStk[dataStkIndex-1] == minStk[minStkIndex-1]) {
+			minStkIndex--;
+			min = minStk[minStkIndex-1];
+		}
+		dataStkIndex--;
+	}
+	int getMin() {
+		if (minStkIndex == -1) {
+			cout << "Stack empty; no minimum. Returning -1. ";
+			return -1;
+		}
+		return minStk[minStkIndex-1];
+	}
+	int top() {
+		return dataStk[dataStkIndex-1];
+	}
+	void printMinStk() {
+		for (int i = 0; i < minStkIndex; i++) {
+			cout << "|" << minStk[i] << "|\n";
+		}
+	}
+
+private:
+	int dataStkIndex, minStkIndex, min;
+	int dataStk[10];
+	int minStk[10];
+
+};
+
 int main() {
 
 	/*
